@@ -1,0 +1,9 @@
+.login_form{
+  margin-bottom: 2.5rem;
+}
+.form-group {
+  margin-right: auto;
+  margin-left: auto;
+  text-align: left;
+  width: 15rem;
+}

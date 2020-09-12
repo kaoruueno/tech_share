@@ -1,0 +1,11 @@
+body {
+  width: 100%;
+}
+header {
+  border-bottom: solid 1px #cccccc;
+}
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-top: 1rem;
+}

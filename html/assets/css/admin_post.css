@@ -1,0 +1,28 @@
+.container>section {
+  text-align: center;
+}
+
+.form-inline {
+  width: 80%;
+  /*display: flex;*/
+  margin-bottom: 1rem;
+  margin-left: auto;
+  text-align: right;
+}
+
+.form-inline>label {
+  /*margin-left: auto;*/
+  /*margin-right: auto;*/
+  /*flex: auto;*/
+  margin-left: 1rem;
+  
+}
+.form-inline label:first-child {
+  /*text-align: right;*/
+  /*margin-left: 0;*/
+  margin-left: 0px;
+}
+table {
+  margin: 0 auto;
+  width: 100%;
+}

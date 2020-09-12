@@ -1,0 +1,54 @@
+<?php
+
+define('VIEW_PATH', $_SERVER['DOCUMENT_ROOT'] . '/../view/');
+define('MODEL_PATH', $_SERVER['DOCUMENT_ROOT'] . '/../model/');
+
+define('IMAGE_PATH', '/assets/images/');
+define('PRE_IMAGE_PATH', '/assets/pre_images/');
+define('TMB_IMAGE_PATH', '/assets/images/tmb/');
+define('PRE_TMB_IMAGE_PATH', '/assets/pre_images/tmb/');
+define('LOGO_PATH', '/assets/logo/');
+define('STYLESHEET_PATH', '/assets/css/');
+define('JS_PATH', '/assets/javascript/');
+define('IMAGE_DIR', $_SERVER['DOCUMENT_ROOT'] . '/assets/images/');
+define('PRE_IMAGE_DIR', $_SERVER['DOCUMENT_ROOT'] . '/assets/pre_images/');
+define('TMB_IMAGE_DIR', $_SERVER['DOCUMENT_ROOT'] . '/assets/images/tmb/');
+define('PRE_TMB_IMAGE_DIR', $_SERVER['DOCUMENT_ROOT'] . '/assets/pre_images/tmb/');
+
+define('DB_HOST', 'mysql');
+define('DB_NAME', 'sample');
+define('DB_USER', 'testuser');
+define('DB_PASS', 'password');
+define('DB_CHARSET', 'utf8');
+
+
+define('INDEX_URL', '/index.php');
+define('LOGIN_URL', '/login.php');
+define('LOGOUT_URL', '/logout.php');
+define('SIGNUP_URL', '/signup.php');
+define('POST_URL', '/post.php');
+
+define('POST_TEST_URL', '/post_test.php');
+
+define('REGEX_ALPHANUMERIC', '/^[0-9a-zA-Z]+$/');
+define('REGEX_POSITIVE_INT', '/^([1-9][0-9]*|0)$/');
+define('REGEX_LANGUAGE_TYPE', '/^[0-4]$/');
+define('REGEX_WHITE_SPACE', '/^[\s　]+$/u');
+define('REGEX_BOTH_ENDS_WHITE_SPACE', '/^[\s　]*(.+?)[\s　]*$/u');
+define('REGEX_PRE_IMAGE', '/\[([\w]{10})(\.png|\.jpg)\]/');
+
+define('USER_NAME_LENGTH_MIN', 6);
+define('USER_NAME_LENGTH_MAX', 20);
+define('USER_PASSWORD_LENGTH_MIN', 6);
+define('USER_PASSWORD_LENGTH_MAX', 100);
+
+define('USER_TYPE_ADMIN', 1);
+define('USER_TYPE_NORMAL', 2);
+
+
+// define('PERMITTED_IMAGE_TYPES', array(
+//   IMAGETYPE_JPEG => 'jpg',
+//   IMAGETYPE_PNG => 'png',
+// ));
+
+?>
