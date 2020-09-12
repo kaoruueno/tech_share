@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <?php include VIEW_PATH . 'templates/responsive.php'; ?>
+  <title>新規登録ページ</title>
+  <link rel="stylesheet" href="<?php print STYLESHEET_PATH . 'common.css'; ?>">
+  <link rel="stylesheet" href="<?php print STYLESHEET_PATH . 'login_signup.css'; ?>">
+  <style>
+  /** {*/
+  /*  outline: solid 1px;*/
+  /*}*/
+  /*body {*/
+  /*  min-width:575px;*/
+  /*  background-color: lightgreen;*/
+  /*}*/
+  /*main {*/
+  /*  background-color: pink;*/
+  /*}*/
+  /*article {*/
+  /*  background-color: lightblue;*/
+  /*}*/
+  /*section {*/
+  /*  background-color: lightgray;*/
+  /*}*/
+  </style>
+</head>
+<body>
+  <?php include VIEW_PATH . 'templates/header.php'; ?>
+  <main>
+    <article class="container">
+      <h2>新規登録ページ</h2>
+      <?php include VIEW_PATH . 'templates/messages.php'; ?>
+      <section class="text-center">
+        <h5>Tech Share に登録</h5>
+        <form method="post" action="signup_process.php" class="login_form">
+          <div class="form-group">
+            <label>ユーザー名:<input type="text" class="form-control" name="user_name" placeholder="6~20文字の半角英数字"></label>
+          </div>
+          <div class="form-group">
+            <label>パスワード:<input type="password" class="form-control" name="password" placeholder="6~100文字の半角英数字"></label>
+          </div>
+          <div class="form-group">
+            <label>パスワード(確認用):<input type="password" class="form-control" name="password_confirmation" placeholder="6~100文字の半角英数字"></label>
+          </div>
+          <div class="form-group">
+            興味があるジャンル(任意):
+            <input type="hidden" name="language_type" value="">
+            <div class="form-check">
+              <label><input type="checkbox" class="form-check-input" name="language_type[]" value="1">HTML/CSS</label>
+            </div>
+            <div class="form-check">
+              <label><input type="checkbox" class="form-check-input" name="language_type[]" value="2">JavaScript</label>
+            </div>
+            <div class="form-check">
+              <label><input type="checkbox" class="form-check-input" name="language_type[]" value="3">PHP</label>
+            </div>
+            <div class="form-check">
+              <label><input type="checkbox" class="form-check-input" name="language_type[]" value="4">MySQL</label>
+            </div>
+            <div class="form-check">
+              <label><input type="checkbox" class="form-check-input" name="language_type[]" value="0">その他</label>
+            </div>
+          </div>
+          <div><input type="submit" class="btn btn-success" value="新規登録"></div>
+        </form>
+        <a href="login.php">ログインページはこちら(登録済みの方)</a>
+      </section>
+    </article>
+  </main>
+</body>
+</html>
