@@ -25,9 +25,9 @@
   </script>
   <!-- 投稿のテスト箇所 -->  
   <style>
-  /** {*/
-  /*  outline: solid 1px;*/
-  /*}*/
+  /* * {
+    outline: solid 1px;
+  } */
   /*body {*/
   /*  min-width:575px;*/
   /*  background-color: lightgreen;*/
@@ -66,8 +66,20 @@
           <textarea name="texts[]" class="form-control"></textarea>
           <input type="file" name="images[]">
         </div>
+        <div class="form-inline">
+          <label>記事のジャンル:
+            <select name="language_type">
+              <option value="">選択して下さい</option>
+              <option value="1">HTML/CSS</option>
+              <option value="2">JavaScript</option>
+              <option value="3">PHP</option>
+              <option value="4">MySQL</option>
+              <option value="0">その他</option>
+            </select>
+          </label>
+        </div>
           <button id='add' type="button" class="btn btn-secondary">フォーム追加</button>
-          <input type='submit' class="btn btn-success" value='プレビュー'>
+          <input type='submit' class="btn btn-success" value="プレビュー">
         </form>
       </section>
     </article>

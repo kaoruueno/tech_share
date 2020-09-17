@@ -135,7 +135,6 @@ function is_valid_language_type($language_type) {
   if (is_array($language_type) === true) {
     foreach ($language_type as $key => $value) {
       if (is_language_type($value) === false) {
-        set_error('ok');
         return false;
       }
     }

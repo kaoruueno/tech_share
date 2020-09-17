@@ -27,8 +27,7 @@ define('LOGIN_URL', '/login.php');
 define('LOGOUT_URL', '/logout.php');
 define('SIGNUP_URL', '/signup.php');
 define('POST_URL', '/post.php');
-
-define('POST_TEST_URL', '/post_test.php');
+define('POST_PRE_URL', '/post_pre.php');
 
 define('REGEX_ALPHANUMERIC', '/^[0-9a-zA-Z]+$/');
 define('REGEX_POSITIVE_INT', '/^([1-9][0-9]*|0)$/');
@@ -45,10 +44,11 @@ define('USER_PASSWORD_LENGTH_MAX', 100);
 define('USER_TYPE_ADMIN', 1);
 define('USER_TYPE_NORMAL', 2);
 
-
-// define('PERMITTED_IMAGE_TYPES', array(
-//   IMAGETYPE_JPEG => 'jpg',
-//   IMAGETYPE_PNG => 'png',
-// ));
-
+define('PERMITTED_LANGUAGE_TYPES', array(
+  1 => 'HTML/CSS',
+  2 => 'JavaScript',
+  3 => 'PHP',
+  4 => 'MySQL',
+  0 => 'その他'
+));
 ?>

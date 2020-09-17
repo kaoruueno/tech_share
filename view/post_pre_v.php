@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <?php include VIEW_PATH . 'templates/responsive.php'; ?>
-  <title>投稿ページ</title>
+  <title>投稿プレビューページ</title>
   <link rel="stylesheet" href="<?php print STYLESHEET_PATH . 'common.css'; ?>">
   <link rel="stylesheet" href="<?php print STYLESHEET_PATH . 'logined.css'; ?>">
   <link rel="stylesheet" href="<?php print STYLESHEET_PATH . 'post.css'; ?>">
@@ -33,20 +33,25 @@
     <?php include VIEW_PATH . 'templates/messages.php'; ?>
     <section>
       <div class="post_pre">
-  <?php print $pre_title; ?>
-  <?php print $pre_tmb_img_file; ?>
-  <?php print $pre_body; ?>
+<?php print $pre_title; ?>
+<?php print $pre_tmb_img_file; ?>
+<?php print $pre_body; ?>
       </div>
       <form method="post" action="post_register.php">
         <div class="form-inline">
           <label>記事のジャンル:
             <select name="language_type">
+<?php if ($language_type === '') { ?>
               <option value="">選択してください</option>
-              <option value="1">HTML/CSS</option>
-              <option value="2">JavaScript</option>
-              <option value="3">PHP</option>
-              <option value="4">MySQL</option>
-              <option value="0">その他</option>
+<?php } ?>
+  <?php foreach (PERMITTED_LANGUAGE_TYPES as $key => $value) { ?>
+    <?php if ($language_type !== '' && (int)$language_type === $key) { ?>
+      <?php $selected = ' selected'; ?>
+    <?php } else { ?>
+      <?php $selected = ''; ?>
+    <?php } ?>
+              <option value="<?php print $key ?>"<?php print $selected ?>><?php print $value ?></option>
+  <?php } ?>
             </select>
           </label>
         </div>

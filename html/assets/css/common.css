@@ -9,3 +9,15 @@ header {
   margin: 0 auto;
   padding-top: 1rem;
 }
+.login_warning {
+  display: flex;
+}
+.login_warning>span:nth-child(2) {
+  margin-left: auto;
+}
+.post_warning {
+  display: flex;
+}
+.post_warning>span:nth-child(2) {
+  margin-left: auto;
+}

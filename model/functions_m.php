@@ -109,6 +109,7 @@ function delete_post_data_session() {
   delete_session('tmb_img_file');
   delete_session('body');
   delete_session('img_file');
+  delete_session('language_type');
 }
 
 function set_error($error){
@@ -139,6 +140,47 @@ function get_messages(){
   }
   set_session('__messages',  array());
   return $messages;
+}
+
+function set_login_warning($warning) {
+  $_SESSION['__login_warnings'][] = $warning;
+}
+
+function get_login_warnings() {
+  $warnings = get_session('__login_warnings');
+  if ($warnings === '') {
+    return array();
+  }
+  unset($_SESSION['__login_warnings']);
+  return $warnings;
+}
+
+
+function set_post_warning($warning) {
+  $_SESSION['__post_warnings'][] = $warning;
+}
+
+function get_post_warnings() {
+  $warnings = get_session('__post_warnings');
+  if ($warnings === '') {
+    return array();
+  }
+  unset($_SESSION['__post_warnings']);
+  return $warnings;
+}
+
+function has_post_session() {
+  $title = get_session('title');
+  $body = get_session('body');
+  return is_valid_post_data_session($title, $body);
+}
+
+function is_valid_post_data_session($title, $body) {
+  if ($body === '' || $title === '') {
+    delete_post_data_session();
+    return false;  
+  }
+  return true;
 }
 
 function is_logined() {
