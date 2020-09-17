@@ -30,10 +30,12 @@ function get_img_file_name_post($img) {
   return $img_file;
 }
 
-function validate_post_data_post($title, $tmb_img, $tmb_img_file, $text, $img, $img_file) {
+function validate_post_data_post($title, $tmb_img, $tmb_img_file, $text, $img, $img_file, $language_type) {
   $title = is_valid_title_post($title);
   $text = is_valid_text_post($text);
-  if ($title === false || $tmb_img === false || $tmb_img_file === false || $text === false || $img === false || $img_file === false) {
+  $language_type = is_valid_language_type_post($language_type);  
+  if ($title === false || $tmb_img === false || $tmb_img_file === false || $text === false || $img === false || $img_file === false || $language_type === false) {
+    delete_post_data_session();
     set_error('プレビューに失敗しました');
     redirect_to(POST_URL);
   }
@@ -75,6 +77,18 @@ function is_valid_text_post($text) {
   return false;
 }
 
+function is_valid_language_type_post($language_type) {
+  if ($language_type === '') {
+    return '';
+  }
+  if ($language_type === false) {
+    return false;
+  }  
+  if (is_language_type($language_type) === false) {
+    return false;
+  }
+  return $language_type;
+}
 
 function get_body_post($text, $img_file) {
   $body = '';
@@ -89,7 +103,7 @@ function get_body_post($text, $img_file) {
   return $body;
 }
 
-function set_post_data_session_post($tmb_img, $tmb_img_file, $img, $img_file, $title, $body) {
+function set_post_data_session_post($tmb_img, $tmb_img_file, $img, $img_file, $title, $body, $language_type) {
   if ($tmb_img_file !== '') {
     save_image_post($tmb_img, $tmb_img_file);
   }
@@ -107,6 +121,9 @@ function set_post_data_session_post($tmb_img, $tmb_img_file, $img, $img_file, $t
   set_session('body', $body);
   if ($img_file !== '') {
     set_session('img_file', $img_file);
+  }
+  if ($language_type !== '') {
+    set_session('language_type', $language_type);
   }
 }
 
@@ -146,16 +163,24 @@ function get_pre_body_post($body) {
   return preg_replace(REGEX_PRE_IMAGE, '<div><img src="'. PRE_IMAGE_PATH . '$1$2"></div>', h($body));
 }
 
-function is_valid_post_data_session_post($title, $body) {
-  if ($body === '' || $title === '') {
-    return false;  
+function is_valid_post_register_data_post($title, $body, $language_type) {
+  if (is_valid_post_data_session($title, $body) === false) {
+    return false;
+  }
+  if (is_valid_language_type_post($language_type) === false) {
+    delete_post_data_session();
+    return false;
+  }
+  if (is_valid_language_type_post($language_type) === '') {
+    set_error('記事のジャンルを選択して下さい');
+    return '';
   }
   return true;
 }
 
 function move_tmb_img_valid_dir_post($tmb_img_file) {
   if ($tmb_img_file !== '') {
-    if (rename(PRE_TMB_IMAGE_PATH . $tmb_img_file, TMB_IMAGE_PATH . $tmb_img_file) === false) {
+    if (rename(PRE_TMB_IMAGE_DIR . $tmb_img_file, TMB_IMAGE_DIR . $tmb_img_file) === false) {
       set_error('サムネイル画像の保存に失敗しました');
     }
   }
@@ -165,7 +190,7 @@ function move_img_valid_dir_post($img_file) {
   if ($img_file !== '') {
     $i = 1;
     foreach ($img_file as $key => $value) {
-      if (rename(PRE_IMAGE_PATH . $value, IMAGE_PATH . $value) === false) {
+      if (rename(PRE_IMAGE_DIR . $value, IMAGE_DIR . $value) === false) {
         set_error('記事中の' . $i . '番目の画像の保存に失敗しました');
       }
       $i++;
@@ -173,6 +198,19 @@ function move_img_valid_dir_post($img_file) {
   }
 }
 
+function register_post($db, $user, $title, $tmb_img_file, $body, $language_type) {
+  $params = [
+    $user['user_id'],
+    $title,
+    $tmb_img_file,
+    $body,
+    $language_type
+  ];
+  $sql = 'INSERT INTO posts(user_id, title, tmb_image, body, language_type)
+          VALUES (?, ?, ?, ?, ?)';
+
+  return execute_query($db, $sql, $params);
+}
 // // 仮
 // function get_post_data_trim_space($key) {
 //   $str = '';

@@ -1,9 +1,21 @@
 <?php
 require_once '../conf/const.php';
 require_once MODEL_PATH . 'functions_m.php';
+require_once MODEL_PATH . 'db_m.php';
+require_once MODEL_PATH . 'user_m.php';
 require_once MODEL_PATH . 'post_m.php';
 
 session_start();
+
+$db = get_db_connect();
+
+$user = get_login_user($db);
+if ($user === false) {
+  redirect_to(LOGOUT_URL);
+}
+if ($user === '') {
+  redirect_to(POST_URL);
+}
 
 // プレビューボタンが押されたときの処理
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -11,12 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $tmb_img = get_file('tmb_image');
 	$text = get_post_array('texts');
   $img = get_file_array('images');
-
+  $language_type = get_post('language_type');
   // $textのバリデーション 失敗した場合、set_error、redirect_to
   $tmb_img_file = get_tmb_img_file_name_post($tmb_img);
   $img_file = get_img_file_name_post($img);
-  // $title	$text $img $tmb_img $file をバリデーションしたものに「false」がなければ、次の処理
-  list($title, $text) = validate_post_data_post($title, $tmb_img, $tmb_img_file, $text, $img, $img_file);
+  // $title	$text $img $tmb_img $file $language_typeをバリデーションしたものに「false」がなければ、次の処理
+  list($title, $text) = validate_post_data_post($title, $tmb_img, $tmb_img_file, $text, $img, $img_file, $language_type);
 
 // 	foreach ($text as $key => $value) {
 //     if ($value !== '') {
@@ -52,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // 
 // }
 
-  set_post_data_session_post($tmb_img, $tmb_img_file, $img, $img_file, $title, $body);
+  set_post_data_session_post($tmb_img, $tmb_img_file, $img, $img_file, $title, $body, $language_type);
   // if (isset($file) === true) {
   //   foreach ($file as $key => $value) {
   //     if (move_uploaded_file($img['tmp_name'][$key], PRE_IMAGE_DIR . $value) !== true) {
@@ -76,8 +88,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $tmb_img_file = get_session('tmb_img_file');
   $body = get_session('body');
   $img_file = get_session('img_file');
-  if ($body === '' || $title === '') {
-    redirect_to(POST_URL);  
+  $language_type = get_session('language_type');
+  if (is_valid_post_data_session($title, $body) === false) {
+    redirect_to(POST_URL);
   }
   $pre_title = get_pre_title_post($title);
   $pre_tmb_img_file = get_pre_tmb_img_post($tmb_img_file);

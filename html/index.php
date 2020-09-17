@@ -9,10 +9,13 @@ session_start();
 
 
 $db = get_db_connect();
-$user = get_login_user($db);
 
+$user = get_login_user($db);
 if ($user === false) {
   redirect_to(LOGOUT_URL);
+}
+if (has_post_session() === true) {
+  set_post_warning('記事の投稿が中断されました。ブラウザを閉じると、中断されたデータは破棄されます。');
 }
 // 記事をDBから取得する処理
 
