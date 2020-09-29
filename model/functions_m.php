@@ -10,10 +10,13 @@ function redirect_to($url){
 }
 
 function get_get($name){
-  if (isset($_GET[$name]) === true){
-    return $_GET[$name];
+  if (isset($_GET[$name]) === false){
+    return false;
   }
-  return '';
+  if ($_GET[$name] === ''){
+    return '';
+  }
+  return $_GET[$name];
 }
 
 function get_post($name){
@@ -106,7 +109,7 @@ function delete_session($name) {
 
 function delete_post_data_session() {
   delete_session('title');
-  delete_session('tmb_img_file');
+  delete_session('title_img_file');
   delete_session('body');
   delete_session('img_file');
   delete_session('language_type');
@@ -192,7 +195,7 @@ function get_random_string($length = 20){
 }
 
 function save_image($img, $img_file){
-  if (move_uploaded_file($img['tmp_name'], PRE_TMB_IMAGE_DIR . $img_file) !== true) {
+  if (move_uploaded_file($img['tmp_name'], PRE_TITLE_IMAGE_DIR . $img_file) !== true) {
     set_error('ファイルアップロードに失敗しました');
   }
 }
@@ -240,28 +243,28 @@ function trim_both_ends_space($str) {
   return preg_replace(REGEX_BOTH_ENDS_WHITE_SPACE, '$1', $str);
 }
 
-// サムネイル用
+// タイトル画像用
 
-function get_upload_file_name($tmb_img) {
-  if (is_uploaded_file($tmb_img['tmp_name']) === false) {
+function get_upload_file_name($title_img) {
+  if (is_uploaded_file($title_img['tmp_name']) === false) {
     return false;
   }
-  $ext = get_upload_file_ext($tmb_img);
+  $ext = get_upload_file_ext($title_img);
   if ($ext === false) {
     return false;
   }
   return get_random_string(10) . $ext;
 }
 
-function get_upload_file_ext($tmb_img) {
-  $file_type = mime_content_type($tmb_img['tmp_name']);
+function get_upload_file_ext($title_img) {
+  $file_type = mime_content_type($title_img['tmp_name']);
   if ($file_type === 'image/png') {
     return '.png';
   } else if ($file_type === 'image/jpeg') {
     return '.jpg';
   } else {
     // （エラー文のファイル形式は後で変更）
-    set_error('サムネイル画像のファイル形式が異なります。画像ファイルはJPEG、PNGのみ利用可能');
+    set_error('タイトル画像のファイル形式が異なります。画像ファイルはJPEG、PNGのみ利用可能');
     return false;
   }
 }
@@ -291,4 +294,11 @@ function get_upload_file_ext_array($img, $key) {
     return false;
   }
 }
+
+function is_even($int) {
+  if ($int % 2 === 0) {
+    return true;
+  }
+  return false;
+} 
 ?>

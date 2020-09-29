@@ -30,11 +30,15 @@
   <main>
   <article class="container">
     <h2>投稿プレビュー</h2>
+    <div class="alert alert-warning alert-dismissible fade show">
+      <strong>注意!</strong> - まだ投稿は完了していません。下の「投稿ボタン」を押すと投稿は完了します。
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
     <?php include VIEW_PATH . 'templates/messages.php'; ?>
     <section>
       <div class="post_pre">
+<?php print $pre_title_img_file; ?>
 <?php print $pre_title; ?>
-<?php print $pre_tmb_img_file; ?>
 <?php print $pre_body; ?>
       </div>
       <form method="post" action="post_register.php">

@@ -48,15 +48,19 @@
   <main>
     <article class="container">
       <h2>投稿ページ</h2>
+      <div class="alert alert-success alert-dismissible fade show">
+        <h4>投稿方法</h4>
+        <div>・記事に複数の画像を表示したり、文章と画像の表示する順番をカスタマイズする場合「フォーム追加」ボタンを押して下さい。</div>
+        <div>・文章と画像は入力・アップロードした順番で記事に表示されます。</div>
+        <div>・投稿内容の文章フォームは少なくとも一箇所の入力が必須です。</div>
+        <div>・画像ファイルはJPEG、PNGのみ利用可能です。</div>
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
       <?php include VIEW_PATH . 'templates/messages.php'; ?>
       <section>
-        <h5>・記事に複数の画像を表示したり、文章と画像の表示する順番をカスタマイズする場合「フォーム追加」ボタンを押して下さい。</h5>
-        <h5>・文章と画像は入力・アップロードした順番で記事に表示されます。</h5>
-        <h5>・投稿内容の文章フォームは少なくとも一箇所の入力が必須です。</h5>
-        <h5>・画像ファイルはJPEG、PNGのみ利用可能です。</h5>
         <form method='post' enctype='multipart/form-data' action="post_pre.php">
         <div class="form-group">
-          <label>サムネイル画像[任意]:<input type="file" name="tmb_image" class="form-control-file"></label>
+          <label>タイトル画像[任意]:<input type="file" name="title_image" class="form-control-file"></label>
         </div>
         <div class="form-group">
           <label>タイトル[必須]:<input type="text" name="title" class="form-control"></label>

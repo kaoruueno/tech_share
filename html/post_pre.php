@@ -20,15 +20,15 @@ if ($user === '') {
 // プレビューボタンが押されたときの処理
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $title = get_post('title');
-  $tmb_img = get_file('tmb_image');
+  $title_img = get_file('title_image');
 	$text = get_post_array('texts');
   $img = get_file_array('images');
   $language_type = get_post('language_type');
   // $textのバリデーション 失敗した場合、set_error、redirect_to
-  $tmb_img_file = get_tmb_img_file_name_post($tmb_img);
+  $title_img_file = get_title_img_file_name_post($title_img);
   $img_file = get_img_file_name_post($img);
-  // $title	$text $img $tmb_img $file $language_typeをバリデーションしたものに「false」がなければ、次の処理
-  list($title, $text) = validate_post_data_post($title, $tmb_img, $tmb_img_file, $text, $img, $img_file, $language_type);
+  // $title	$text $img $title_img $file $language_typeをバリデーションしたものに「false」がなければ、次の処理
+  list($title, $text) = validate_post_data_post($title, $title_img, $title_img_file, $text, $img, $img_file, $language_type);
 
 // 	foreach ($text as $key => $value) {
 //     if ($value !== '') {
@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // 
 // }
 
-  set_post_data_session_post($tmb_img, $tmb_img_file, $img, $img_file, $title, $body, $language_type);
+  set_post_data_session_post($title_img, $title_img_file, $img, $img_file, $title, $body, $language_type);
   // if (isset($file) === true) {
   //   foreach ($file as $key => $value) {
   //     if (move_uploaded_file($img['tmp_name'][$key], PRE_IMAGE_DIR . $value) !== true) {
@@ -80,12 +80,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // $_SESSION['body'] = $body;
 
   $pre_title = get_pre_title_post($title);
-  $pre_tmb_img_file = get_pre_tmb_img_post($tmb_img_file);
+  $pre_title_img_file = get_pre_title_img_post($title_img_file);
   $pre_body = get_pre_body_post($body);
 
 } else {
   $title = get_session('title');
-  $tmb_img_file = get_session('tmb_img_file');
+  $title_img_file = get_session('title_img_file');
   $body = get_session('body');
   $img_file = get_session('img_file');
   $language_type = get_session('language_type');
@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     redirect_to(POST_URL);
   }
   $pre_title = get_pre_title_post($title);
-  $pre_tmb_img_file = get_pre_tmb_img_post($tmb_img_file);
+  $pre_title_img_file = get_pre_title_img_post($title_img_file);
   $pre_body = get_pre_body_post($body);
 }
 include_once VIEW_PATH . 'post_pre_v.php';

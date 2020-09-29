@@ -66,8 +66,6 @@ function entity_array($array) {
   foreach ($array as $key => $value) {
     if (is_string($value) === TRUE) {
       $array[$key] = h($value);
-    } else {
-      $array[$key] = $value;
     }
   }
   return $array;
@@ -81,13 +79,10 @@ function entity_double_array($double_array) {
     foreach ($value as $keys => $values) {
       if (is_string($values) === TRUE) {
         $value[$keys] = h($values);
-      } else {
-        $value[$keys] = $values;
       }
     }
     $double_array[$key] = $value;
   }
   return $double_array;
 }
-
 ?>

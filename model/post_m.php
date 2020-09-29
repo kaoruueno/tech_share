@@ -1,12 +1,12 @@
 <?php
-function get_tmb_img_file_name_post($tmb_img) {
-  if ($tmb_img === false) {
+function get_title_img_file_name_post($title_img) {
+  if ($title_img === false) {
     return false;
   }
-  if ($tmb_img === '') {
+  if ($title_img === '') {
     return '';
   }
-  return get_upload_file_name($tmb_img);
+  return get_upload_file_name($title_img);
 }
 
 function get_img_file_name_post($img) {
@@ -30,11 +30,11 @@ function get_img_file_name_post($img) {
   return $img_file;
 }
 
-function validate_post_data_post($title, $tmb_img, $tmb_img_file, $text, $img, $img_file, $language_type) {
+function validate_post_data_post($title, $title_img, $title_img_file, $text, $img, $img_file, $language_type) {
   $title = is_valid_title_post($title);
   $text = is_valid_text_post($text);
   $language_type = is_valid_language_type_post($language_type);  
-  if ($title === false || $tmb_img === false || $tmb_img_file === false || $text === false || $img === false || $img_file === false || $language_type === false) {
+  if ($title === false || $title_img === false || $title_img_file === false || $text === false || $img === false || $img_file === false || $language_type === false) {
     delete_post_data_session();
     set_error('プレビューに失敗しました');
     redirect_to(POST_URL);
@@ -103,9 +103,9 @@ function get_body_post($text, $img_file) {
   return $body;
 }
 
-function set_post_data_session_post($tmb_img, $tmb_img_file, $img, $img_file, $title, $body, $language_type) {
-  if ($tmb_img_file !== '') {
-    save_image_post($tmb_img, $tmb_img_file);
+function set_post_data_session_post($title_img, $title_img_file, $img, $img_file, $title, $body, $language_type) {
+  if ($title_img_file !== '') {
+    save_image_post($title_img, $title_img_file);
   }
   if ($img_file !== '') {
     save_image_array_post($img, $img_file);
@@ -115,8 +115,8 @@ function set_post_data_session_post($tmb_img, $tmb_img_file, $img, $img_file, $t
     redirect_to(POST_URL);
   }
   set_session('title', $title);
-  if ($tmb_img_file !== '') {
-    set_session('tmb_img_file', $tmb_img_file);
+  if ($title_img_file !== '') {
+    set_session('title_img_file', $title_img_file);
   }
   set_session('body', $body);
   if ($img_file !== '') {
@@ -127,9 +127,9 @@ function set_post_data_session_post($tmb_img, $tmb_img_file, $img, $img_file, $t
   }
 }
 
-function save_image_post($tmb_img, $tmb_img_file){
-  if (move_uploaded_file($tmb_img['tmp_name'], PRE_TMB_IMAGE_DIR . $tmb_img_file) !== true) {
-    set_error('サムネイル画像のファイルアップロードに失敗しました');
+function save_image_post($title_img, $title_img_file){
+  if (move_uploaded_file($title_img['tmp_name'], PRE_TITLE_IMAGE_DIR . $title_img_file) !== true) {
+    set_error('タイトル画像のファイルアップロードに失敗しました');
   }
 }
 
@@ -143,14 +143,14 @@ function save_image_array_post($img, $img_file){
 
 
 function get_pre_title_post($title) {
-  return '<h3>タイトル</h3>'."\n".'<h3>' . h($title) . '</h3>'."\n";
+  return '<h5>タイトル:</h5>'."\n".'<h3>' . h($title) . '</h3>'."\n";
 }
 
-function get_pre_tmb_img_post($tmb_img_file) {
-  if ($tmb_img_file !== '') {
-    return '<h5>サムネイル</h5>'."\n".'<div><img src="'. PRE_TMB_IMAGE_PATH . h($tmb_img_file) . '"></div>'."\n";
+function get_pre_title_img_post($title_img_file) {
+  if ($title_img_file !== '') {
+    return '<h5>タイトル画像:</h5>'."\n".'<div><img src="'. PRE_TITLE_IMAGE_PATH . h($title_img_file) . '"></div>'."\n";
   }
-  return $pre_tmb_img_file = '';
+  return $pre_title_img_file = '';
 }
 
 function get_pre_body_post($body) {
@@ -160,7 +160,7 @@ function get_pre_body_post($body) {
 
 
   // $replacement = '<div><img src="'. PRE_IMAGE_PATH . '$1$2"></div>'."\n";
-  return preg_replace(REGEX_PRE_IMAGE, '<div><img src="'. PRE_IMAGE_PATH . '$1$2"></div>', h($body));
+  return '<h5>投稿内容:</h5>' . "\n" . preg_replace(REGEX_IMAGE, '<div><img src="'. PRE_IMAGE_PATH . '$1$2"></div>', h($body));
 }
 
 function is_valid_post_register_data_post($title, $body, $language_type) {
@@ -178,10 +178,10 @@ function is_valid_post_register_data_post($title, $body, $language_type) {
   return true;
 }
 
-function move_tmb_img_valid_dir_post($tmb_img_file) {
-  if ($tmb_img_file !== '') {
-    if (rename(PRE_TMB_IMAGE_DIR . $tmb_img_file, TMB_IMAGE_DIR . $tmb_img_file) === false) {
-      set_error('サムネイル画像の保存に失敗しました');
+function move_title_img_valid_dir_post($title_img_file) {
+  if ($title_img_file !== '') {
+    if (rename(PRE_TITLE_IMAGE_DIR . $title_img_file, TITLE_IMAGE_DIR . $title_img_file) === false) {
+      set_error('タイトル画像の保存に失敗しました');
     }
   }
 }
@@ -198,15 +198,15 @@ function move_img_valid_dir_post($img_file) {
   }
 }
 
-function register_post($db, $user, $title, $tmb_img_file, $body, $language_type) {
+function register_post($db, $user_id, $title, $title_img_file, $body, $language_type) {
   $params = [
-    $user['user_id'],
+    $user_id,
     $title,
-    $tmb_img_file,
+    $title_img_file,
     $body,
     $language_type
   ];
-  $sql = 'INSERT INTO posts(user_id, title, tmb_image, body, language_type)
+  $sql = 'INSERT INTO posts(user_id, title, title_image, body, language_type)
           VALUES (?, ?, ?, ?, ?)';
 
   return execute_query($db, $sql, $params);
