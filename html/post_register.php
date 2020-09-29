@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $title = get_session('title');
-$tmb_img_file = get_session('tmb_img_file');
+$title_img_file = get_session('title_img_file');
 $body = get_session('body');
 $img_file = get_session('img_file');
 $language_type = get_post('language_type');
@@ -34,15 +34,15 @@ if (is_valid_post_register_data_post($title, $body, $language_type) === false) {
   redirect_to(POST_PRE_URL);
 }
 
-move_tmb_img_valid_dir_post($tmb_img_file);
+move_title_img_valid_dir_post($title_img_file);
 move_img_valid_dir_post($img_file);
 if (has_error() === true) {
   set_error('投稿に失敗しました。再度お試し下さい。');
   redirect_to(POST_URL);
 }
 
-// DBに$title, $tmb_img_file, $body, $language_typeを登録
-if (register_post($db, $user, $title, $tmb_img_file, $body, $language_type)=== false) {
+// DBに$title, $title_img_file, $body, $language_typeを登録
+if (register_post($db, $user['user_id'], $title, $title_img_file, $body, $language_type)=== false) {
   set_error('投稿に失敗しました。再度お試し下さい。');
   redirect_to(POST_URL);
 }

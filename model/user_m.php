@@ -179,4 +179,235 @@ function insert_favorite_languages($db, $user_id, $language_type){
 
   return execute_query($db, $sql, $params);
 }
+
+function is_own_post($db, $user, $post_id) {
+  if (is_array($user) === false) {
+    return false;
+  }
+  if (is_array(get_own_post($db, $post_id, $user['user_id'])) === false) {
+    return false;
+  }
+  return true;
+}
+function get_own_post($db, $post_id, $user_id){
+  $params = [
+    $post_id,
+    $user_id
+  ];
+  $sql = 'SELECT post_id
+          FROM posts
+          WHERE post_id = ?
+          AND user_id = ?
+          LIMIT 1';
+
+  return fetch_query($db, $sql, $params);
+}
+
+function is_favorite_post($db, $user, $post_id) {
+  if (is_array($user) === false) {
+    return false;
+  }
+  if (is_array(get_favorite_post($db, $user['user_id'], $post_id)) === false) {
+    return false;
+  }
+  return true;
+}
+function get_favorite_post($db, $user_id, $post_id){
+  $params = [
+    $user_id,
+    $post_id
+  ];
+  $sql = 'SELECT post_id
+          FROM favorite_posts
+          WHERE user_id = ?
+          AND post_id = ?
+          LIMIT 1';
+
+  return fetch_query($db, $sql, $params);
+}
+
+function is_register_post($db, $post_id) {
+  if (is_array(get_register_post($db, $post_id)) === false) {
+    return false;
+  }
+  return true;
+}
+function get_register_post($db, $post_id) {
+  $params = [
+    $post_id
+  ];
+  $sql = 'SELECT post_id
+          FROM posts
+          WHERE post_id = ?
+          LIMIT 1';
+
+  return fetch_query($db, $sql, $params);
+}
+
+function is_valid_post_id_for_favorite_post_register($db, $user, $post_id) {
+  if ($post_id === false || $post_id === '') {
+    return false;
+  }
+  if (is_positive_int($post_id) === false) {
+    return false;
+  }
+  if (is_register_post($db, $post_id) === false) {
+    return false;
+  }
+  if (is_own_post($db, $user, $post_id) === true) {
+    return false;
+  }
+  if (is_favorite_post($db, $user, $post_id) === true) {
+    return false;
+  }
+  return true;
+}
+
+function register_favorite_post($db, $user, $post_id) {
+  $params = [
+    $user['user_id'],
+    $post_id
+  ];
+  $sql = 'INSERT INTO favorite_posts(user_id, post_id)
+          VALUES (?, ?)';
+
+  return execute_query($db, $sql, $params);
+}
+
+function is_valid_post_id_for_favorite_post_delete($db, $user, $post_id) {
+  if ($post_id === false || $post_id === '') {
+    return false;
+  }
+  if (is_positive_int($post_id) === false) {
+    return false;
+  }
+  if (is_register_post($db, $post_id) === false) {
+    return false;
+  }
+  if (is_favorite_post($db, $user, $post_id) === false) {
+    return false;
+  }
+  return true;
+}
+
+function delete_favorite_post($db, $user, $post_id) {
+  $params = [
+    $user['user_id'],
+    $post_id
+  ];
+  $sql = 'DELETE FROM favorite_posts
+          WHERE user_id = ?
+          AND post_id = ?';
+
+  return execute_query($db, $sql, $params);
+}
+
+function is_following_user($db, $user, $follower_id) {
+  if (is_array($user) === false) {
+    return false;
+  }
+  if (is_array(get_following_user($db, $user['user_id'], $follower_id)) === false) {
+    return false;
+  }
+  return true;
+}
+function get_following_user($db, $user_id, $follower_id){
+  $params = [
+    $user_id,
+    $follower_id
+  ];
+  $sql = 'SELECT follower_id
+          FROM following_users
+          WHERE user_id = ?
+          AND follower_id = ?
+          LIMIT 1';
+
+  return fetch_query($db, $sql, $params);
+}
+
+function is_own_user($user, $follower_id) {
+  if (is_array($user) === false) {
+    return false;
+  }
+  if ($user['user_id'] !== (int)$follower_id) {
+    return false;
+  }
+  return true;
+}
+
+function is_register_user($db, $user_id) {
+  if (is_array(get_register_user($db, $user_id)) === false) {
+    return false;
+  }
+  return true;
+}
+function get_register_user($db, $user_id) {
+  $params = [
+    $user_id
+  ];
+  $sql = 'SELECT user_id
+          FROM users_t
+          WHERE user_id = ?
+          LIMIT 1';
+
+  return fetch_query($db, $sql, $params);
+}
+
+function is_valid_follower_id_for_following_user_register($db, $user, $follower_id) {
+  if ($follower_id === false || $follower_id === '') {
+    return false;
+  }
+  if (is_positive_int($follower_id) === false) {
+    return false;
+  }
+  if (is_register_user($db, $follower_id) === false) {
+    return false;
+  }
+  if (is_own_user($user, $follower_id) === true) {
+    return false;
+  }
+  if (is_following_user($db, $user, $follower_id) === true) {
+    return false;
+  }
+  return true;
+}
+
+function register_following_user($db, $user, $follower_id) {
+  $params = [
+    $user['user_id'],
+    $follower_id
+  ];
+  $sql = 'INSERT INTO following_users(user_id, follower_id)
+          VALUES (?, ?)';
+
+  return execute_query($db, $sql, $params);
+}
+
+function is_valid_follower_id_for_following_user_delete($db, $user, $follower_id) {
+  if ($follower_id === false || $follower_id === '') {
+    return false;
+  }
+  if (is_positive_int($follower_id) === false) {
+    return false;
+  }
+  if (is_register_user($db, $follower_id) === false) {
+    return false;
+  }
+  if (is_following_user($db, $user, $follower_id) === false) {
+    return false;
+  }
+  return true;
+}
+
+function delete_following_user($db, $user, $follower_id) {
+  $params = [
+    $user['user_id'],
+    $follower_id
+  ];
+  $sql = 'DELETE FROM following_users
+          WHERE user_id = ?
+          AND follower_id = ?';
+
+  return execute_query($db, $sql, $params);
+}
 ?>

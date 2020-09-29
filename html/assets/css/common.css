@@ -1,5 +1,13 @@
+/* 子要素が親要素をはみ出しを防ぐ */
+*, *:before, *:after {
+  /* 横幅・高さにborderとpaddingを含める */
+  box-sizing: border-box;
+}
 body {
   width: 100%;
+  /* できるだけ単語途中を避け、折り返す */
+  word-wrap : break-word;
+  overflow-wrap : break-word;
 }
 header {
   border-bottom: solid 1px #cccccc;
@@ -21,3 +29,19 @@ header {
 .post_warning>span:nth-child(2) {
   margin-left: auto;
 }
+/* 登録されているか否かで色変える */
+.fa-heart {
+  font-size: 1rem;
+  color: #6c757d;
+}
+.fa-thumbs-up {
+  font-size: 1rem;
+  color: #6c757d;
+}
+.favorite {
+  color: #ff6600;
+}
+.following {
+  color: red;
+}
+/* 登録されているか否かで色変える */
