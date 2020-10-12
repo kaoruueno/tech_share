@@ -38,10 +38,10 @@ header {
   font-size: 1rem;
   color: #6c757d;
 }
-.favorite {
+i.favorite_post {
   color: #ff6600;
 }
-.following {
+i.following {
   color: red;
 }
 /* 登録されているか否かで色変える */

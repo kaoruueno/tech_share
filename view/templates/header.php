@@ -7,7 +7,7 @@
     <!-- if (login後)なら -->
 <?php if (isset($user['user_name']) === true) { ?>
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item">ようこそ <?php print $user['user_name']; ?>さん</li>
+      <li class="nav-item">ようこそ <?php print h($user['user_name']); ?>さん</li>
     </ul>
 <?php } ?>
     <!-- if (login後)なら -->

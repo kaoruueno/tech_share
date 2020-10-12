@@ -295,6 +295,27 @@ function get_upload_file_ext_array($img, $key) {
   }
 }
 
+function is_unique_value_array($array) {
+  $unique_array = [];
+  foreach($array as $key => $value) {
+    if (in_array($value, $unique_array, true) === true) {
+      return false;
+    }
+    $unique_array[$key] = $value;
+  }
+  return true;
+}
+
+function convert_unique_value_array($array) {
+  $unique_array = [];
+  foreach($array as $key => $value) {
+    if (in_array($value, $unique_array, true) === false) {
+      $unique_array[$key] = $value;
+    }
+  }
+  return $unique_array;
+}
+
 function is_even($int) {
   if ($int % 2 === 0) {
     return true;

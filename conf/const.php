@@ -52,5 +52,14 @@ define('PERMITTED_LANGUAGE_TYPES', array(
   0 => 'その他'
 ));
 
+define('MY_PROFILE_LINK', array(
+  'followings' => 1,
+  'followers' => 2,
+  'own_posts' => 3,
+  'favorite_posts' => 4,
+  'favorite_languages' => 5,
+  'no_request' => 0
+));
+
 define('NO_IMAGE', 'no_image.png');
 ?>

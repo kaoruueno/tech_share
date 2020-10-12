@@ -59,14 +59,14 @@ function get_login_user($db){
 
 
 
-function register_user($db, $user_name, $password, $password_confirmation, $language_type) {
-  if (is_valid_user($user_name, $password, $password_confirmation, $language_type) === false) {
+function register_user($db, $user_name, $password, $password_confirmation, $language_types) {
+  if (is_valid_user($user_name, $password, $password_confirmation, $language_types) === false) {
     return false;
   }
   // パスワードのハッシュ化
   $password = password_hash($password, PASSWORD_DEFAULT);
-  if ($language_type !== '') {
-    return signup_transaction($db, $user_name, $password, $language_type);
+  if ($language_types !== '') {
+    return signup_transaction($db, $user_name, $password, $language_types);
   }
   return insert_user($db, $user_name, $password);
 }
@@ -75,13 +75,13 @@ function is_admin($user){
   return $user['type'] === USER_TYPE_ADMIN;
 }
 
-function is_valid_user($user_name, $password, $password_confirmation, $language_type) {
+function is_valid_user($user_name, $password, $password_confirmation, $language_types) {
   // 短絡評価を避けるため一旦代入。
   $is_valid_user_name = is_valid_user_name($user_name);
   $is_valid_password = is_valid_password($password, $password_confirmation);
   $is_valid_password_confirmation = is_valid_password_confirmation($is_valid_password, $password, $password_confirmation);
-  $is_valid_language_type = is_valid_language_type($language_type);
-  return $is_valid_user_name && $is_valid_password && $is_valid_password_confirmation && $is_valid_language_type;
+  $is_valid_language_types = is_valid_language_types($language_types);
+  return $is_valid_user_name && $is_valid_password && $is_valid_password_confirmation && $is_valid_language_types;
 }
 
 function is_valid_user_name($user_name) {
@@ -128,26 +128,29 @@ function is_valid_password_confirmation($is_valid_password, $password, $password
   return $is_valid;
 }
 
-function is_valid_language_type($language_type) {
-  if ($language_type === false) {
+function is_valid_language_types($language_types) {
+  if ($language_types === false) {
     return false;
   }
-  if (is_array($language_type) === true) {
-    foreach ($language_type as $key => $value) {
+  if (is_array($language_types) === true) {
+    foreach ($language_types as $key => $value) {
       if (is_language_type($value) === false) {
         return false;
       }
+    }
+    if (is_unique_value_array($language_types) === false) {
+      return false;
     }
   }
   return true;
 }
 
-function signup_transaction($db, $user_name, $password, $language_type) {
+function signup_transaction($db, $user_name, $password, $language_types) {
   $db->beginTransaction();
   insert_user($db, $user_name, $password);
   $user_id = $db->lastInsertId('user_id');
-  foreach ($language_type as $value) {
-    insert_favorite_languages($db, $user_id, $value);
+  foreach ($language_types as $value) {
+    insert_favorite_language($db, $user_id, $value);
   }
   if (has_error() === false) {
     $db->commit();
@@ -169,7 +172,7 @@ function insert_user($db, $user_name, $password){
   return execute_query($db, $sql, $params);
 }
 
-function insert_favorite_languages($db, $user_id, $language_type){
+function insert_favorite_language($db, $user_id, $language_type) {
   $params = [
     $user_id,
     $language_type

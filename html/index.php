@@ -17,7 +17,6 @@ if ($user === false) {
 
 // DBから記事を取得(それぞれの記事に下の処理をする)
 $articles = get_all_articles($db);
-$articles = get_articles_for_index($articles);
 
 if (has_post_session() === true) {
   set_post_warning('記事の投稿が中断されました。ブラウザを閉じると、中断されたデータは破棄されます。');
