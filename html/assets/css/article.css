@@ -12,6 +12,7 @@ article section>*:not(:first-child) {
   bottom: 0;
 }
 .article_body {
+  white-space: pre;
   font-size: 1.25rem;
   line-height: 1.75;
 }

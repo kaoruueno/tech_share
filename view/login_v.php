@@ -30,7 +30,7 @@
     <article class="container">
       <h2>ログインページ</h2>
       <?php include VIEW_PATH . 'templates/messages.php'; ?>
-      <section class="text-center">
+      <section>
         <h5>Tech Share にログイン</h5>
         <form method="post" action="login_process.php" class="login_form">
           <div class="form-group">

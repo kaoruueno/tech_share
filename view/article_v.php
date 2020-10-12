@@ -3,7 +3,7 @@
 <head>
   <?php include VIEW_PATH . 'templates/responsive.php'; ?>
   <?php include VIEW_PATH . 'templates/icon.php'; ?>
-  <title>記事のタイトル</title>
+  <title>記事の内容</title>
   <link rel="stylesheet" href="<?php print STYLESHEET_PATH . 'common.css'; ?>">
   <link rel="stylesheet" href="<?php print STYLESHEET_PATH . 'logined.css'; ?>">
   <link rel="stylesheet" href="<?php print STYLESHEET_PATH . 'article.css'; ?>">
@@ -65,7 +65,7 @@
   <?php } else { ?>
               <form method="post" action="favorite_post_delete.php">
                 <input type="hidden" name="post_id" value="<?php print $article['post_id']; ?>">
-                <button type="submit" class="btn btn-light"><i class="fas fa-thumbs-up favorite"></i> お気に入り解除</button>
+                <button type="submit" class="btn btn-light"><i class="fas fa-thumbs-up favorite_post"></i> お気に入り解除</button>
               </form>
   <?php } ?> 
 <?php } ?>

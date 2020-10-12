@@ -30,7 +30,7 @@
     <article class="container">
       <h2>新規登録ページ</h2>
       <?php include VIEW_PATH . 'templates/messages.php'; ?>
-      <section class="text-center">
+      <section>
         <h5>Tech Share に登録</h5>
         <form method="post" action="signup_process.php" class="login_form">
           <div class="form-group">
@@ -44,24 +44,24 @@
           </div>
           <div class="form-group">
             興味があるジャンル(任意):
-            <input type="hidden" name="language_type" value="">
+            <input type="hidden" name="language_types" value="">
             <div class="form-check">
-              <label><input type="checkbox" class="form-check-input" name="language_type[]" value="1">HTML/CSS</label>
+              <label><input type="checkbox" class="form-check-input" name="language_types[]" value="1">HTML/CSS</label>
             </div>
             <div class="form-check">
-              <label><input type="checkbox" class="form-check-input" name="language_type[]" value="2">JavaScript</label>
+              <label><input type="checkbox" class="form-check-input" name="language_types[]" value="2">JavaScript</label>
             </div>
             <div class="form-check">
-              <label><input type="checkbox" class="form-check-input" name="language_type[]" value="3">PHP</label>
+              <label><input type="checkbox" class="form-check-input" name="language_types[]" value="3">PHP</label>
             </div>
             <div class="form-check">
-              <label><input type="checkbox" class="form-check-input" name="language_type[]" value="4">MySQL</label>
+              <label><input type="checkbox" class="form-check-input" name="language_types[]" value="4">MySQL</label>
             </div>
             <div class="form-check">
-              <label><input type="checkbox" class="form-check-input" name="language_type[]" value="0">その他</label>
+              <label><input type="checkbox" class="form-check-input" name="language_types[]" value="0">その他</label>
             </div>
           </div>
-          <div><input type="submit" class="btn btn-success" value="新規登録"></div>
+          <input type="submit" class="btn btn-success" value="新規登録">
         </form>
         <a href="login.php">ログインページはこちら(登録済みの方)</a>
       </section>

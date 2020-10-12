@@ -1,6 +1,6 @@
 <?php
-function get_articles($db) {
-  // $params = [];
+function get_articles($db, $user_id = '') {
+  $params = [];
   $sql = '
     SELECT
       post_id, 
@@ -18,6 +18,10 @@ function get_articles($db) {
       ON
         posts.user_id = users_t.user_id
   ';
+  if ($user_id !== '') {
+    $params[] = $user_id;
+    $sql .= 'WHERE posts.user_id = ?';
+  }
   return fetch_all_query($db, $sql, $params);
 }
 
@@ -68,14 +72,15 @@ function get_article($db, $post_id) {
 // }
 
 function get_all_articles($db){
-  return get_articles($db);
+  $articles = get_articles($db);
+  return convert_shortened_articles($articles);
 }
   
 // function get_open_items($db){
 //   return get_items($db, true);
 // }
 
-function get_articles_for_index($articles) {
+function convert_shortened_articles($articles) {
   foreach ($articles as $key => $value) {
     $value['title_image'] = get_title_img_for_index($value['title_image']);
     $value['body'] = get_body_for_index($value['body']);

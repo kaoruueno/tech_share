@@ -1,4 +1,7 @@
-.login_form{
+.container>section {
+  text-align: center;
+}
+.login_form {
   margin-bottom: 2.5rem;
 }
 .form-group {
@@ -6,4 +9,7 @@
   margin-left: auto;
   text-align: left;
   width: 15rem;
+}
+.form-group label {
+  width: 100%;
 }
