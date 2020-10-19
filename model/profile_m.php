@@ -1,35 +1,35 @@
 <?php
-function get_valid_get_my_profile_data($followings, $followers, $own_posts, $favorite_posts, $favorite_languages) {
+function get_valid_get_profile_data($followings, $followers, $own_posts, $favorite_posts, $favorite_languages) {
   $count = [];
-  if (is_valid_my_profile_data($followings) === true) {
-    $count[] = MY_PROFILE_LINK['followings'];
+  if (is_valid_profile_data($followings) === true) {
+    $count[] = PROFILE_LINK['followings'];
   }
-  if (is_valid_my_profile_data($followers) === true) {
-    $count[] = MY_PROFILE_LINK['followers'];
+  if (is_valid_profile_data($followers) === true) {
+    $count[] = PROFILE_LINK['followers'];
   }
-  if (is_valid_my_profile_data($own_posts) === true) {
-    $count[] = MY_PROFILE_LINK['own_posts'];
+  if (is_valid_profile_data($own_posts) === true) {
+    $count[] = PROFILE_LINK['own_posts'];
   }
-  if (is_valid_my_profile_data($favorite_posts) === true) {
-    $count[] = MY_PROFILE_LINK['favorite_posts'];
+  if (is_valid_profile_data($favorite_posts) === true) {
+    $count[] = PROFILE_LINK['favorite_posts'];
   }
-  if (is_valid_my_profile_data($favorite_languages) === true) {
-    $count[] = MY_PROFILE_LINK['favorite_languages'];
+  if (is_valid_profile_data($favorite_languages) === true) {
+    $count[] = PROFILE_LINK['favorite_languages'];
   }
 
-  if (is_valid_count_get_my_profile_data($count) === true) {
+  if (is_valid_count_get_profile_data($count) === true) {
     return $count[0];
   }
-  return MY_PROFILE_LINK['no_request'];
+  return PROFILE_LINK['no_request'];
 }
-function is_valid_my_profile_data($profile_data) {
+function is_valid_profile_data($profile_data) {
   // 「1」に指定したGETリクエストのURL変数を、バリデーション
   if ($profile_data === '1') {
     return true;
   }
   return false;
 }
-function is_valid_count_get_my_profile_data($count) {
+function is_valid_count_get_profile_data($count) {
   if (count($count) === 1) {
     return true;
   }
@@ -46,24 +46,9 @@ function get_count_followings($db, $user) {
   $params = [
     $user['user_id']
   ];
-  $sql = 'SELECT COUNT(user_id)
-          FROM following_users
-          WHERE user_id = ?
-          LIMIT 1';
-  $result = fetch_query($db, $sql, $params);
-  // if ($result === false) {
-  //   return false;
-  // }
-  return $result['COUNT(user_id)'];
-}
-
-function get_count_followers($db, $user) {
-  $params = [
-    $user['user_id']
-  ];
   $sql = 'SELECT COUNT(follower_id)
           FROM following_users
-          WHERE follower_id = ?
+          WHERE user_id = ?
           LIMIT 1';
   $result = fetch_query($db, $sql, $params);
   // if ($result === false) {
@@ -72,18 +57,33 @@ function get_count_followers($db, $user) {
   return $result['COUNT(follower_id)'];
 }
 
-function get_result_requested_my_profile_link($db, $user, $get_link) {
-  if ($get_link === MY_PROFILE_LINK['no_request']) {
+function get_count_followers($db, $user) {
+  $params = [
+    $user['user_id']
+  ];
+  $sql = 'SELECT COUNT(user_id)
+          FROM following_users
+          WHERE follower_id = ?
+          LIMIT 1';
+  $result = fetch_query($db, $sql, $params);
+  // if ($result === false) {
+  //   return false;
+  // }
+  return $result['COUNT(user_id)'];
+}
+
+function get_result_requested_profile_link($db, $user, $get_link) {
+  if ($get_link === PROFILE_LINK['no_request']) {
     return '';
-  } else if ($get_link === MY_PROFILE_LINK['followings']) {
+  } else if ($get_link === PROFILE_LINK['followings']) {
     return get_followings($db, $user);
-  } else if ($get_link === MY_PROFILE_LINK['followers']) {
+  } else if ($get_link === PROFILE_LINK['followers']) {
     return get_followers($db, $user);
-  } else if ($get_link === MY_PROFILE_LINK['own_posts']) {
+  } else if ($get_link === PROFILE_LINK['own_posts']) {
     return get_own_posts($db, $user);
-  } else if ($get_link === MY_PROFILE_LINK['favorite_posts']) {
+  } else if ($get_link === PROFILE_LINK['favorite_posts']) {
     return get_favorite_posts($db, $user);
-  } else if ($get_link === MY_PROFILE_LINK['favorite_languages']) {
+  } else if ($get_link === PROFILE_LINK['favorite_languages']) {
     return get_favorite_languages_checked($db, $user);
   }
 }
@@ -245,10 +245,10 @@ function delete_favorite_language($db, $user_id, $language_type) {
   return execute_query($db, $sql, $params);
 }
 
-function get_my_profile_link_button($get_link) {
+function get_profile_link_button($get_link) {
   $button = [];
-  foreach (MY_PROFILE_LINK as $key => $value) {
-    if ($value === MY_PROFILE_LINK['no_request']) {
+  foreach (PROFILE_LINK as $key => $value) {
+    if ($value === PROFILE_LINK['no_request']) {
       continue;
     }
     $class = 'btn';
@@ -260,13 +260,13 @@ function get_my_profile_link_button($get_link) {
       $class .= ' btn-';
     }
 
-    if ($value === MY_PROFILE_LINK['followings'] || $value === MY_PROFILE_LINK['followers']) {
+    if ($value === PROFILE_LINK['followings'] || $value === PROFILE_LINK['followers']) {
       $class .= 'dark';
     } else {
       $class .= 'success';
     }
     
-    if ($value === $get_link && $get_link !== MY_PROFILE_LINK['no_request']) {
+    if ($value === $get_link && $get_link !== PROFILE_LINK['no_request']) {
       $class .= ' disabled';
       $disabled = ' tabindex="-1" aria-disabled="true"';
     }
@@ -274,5 +274,45 @@ function get_my_profile_link_button($get_link) {
     $button[$key]['disabled'] = $disabled;
   }
   return $button;
+}
+
+// 
+
+function is_valid_another_user_id($db, $user, $another_user_id) {
+  if ($another_user_id === false || $another_user_id === '') {
+    return false;
+  }
+  if (is_positive_int($another_user_id) === false) {
+    return false;
+  }
+  if (is_register_user($db, $another_user_id) === false) {
+    return false;
+  }
+  if (is_own_user($user, $another_user_id) === true) {
+    return false;
+  }
+  return true;
+}
+
+function get_accessed_another_user($db, $another_user_id, $is_another_user = true) {
+  return get_user($db, $another_user_id, $is_another_user);
+}
+
+// function get_accessed_another_user_session($db) {
+//   $another_user_id = get_session('another_user_id');
+//   if ($another_user_id === '') {
+//     return '';
+//   }
+//   return get_user($db, $another_user_id, $is_another_user = true);
+// }
+
+function set_new_accessed_another_user_session($get_another_user_id, $another_user_session) {
+  if ($get_another_user_id === '' && $another_user_session === '') {
+    return false;
+  }
+  if ($get_another_user_id !== '') {
+    set_session('another_user_id', (int)$get_another_user_id);
+  }
+  return true;
 }
 ?>

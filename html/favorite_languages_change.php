@@ -3,7 +3,7 @@ require_once '../conf/const.php';
 require_once MODEL_PATH . 'functions_m.php';
 require_once MODEL_PATH . 'db_m.php';
 require_once MODEL_PATH . 'user_m.php';
-require_once MODEL_PATH . 'account_m.php';
+require_once MODEL_PATH . 'profile_m.php';
 // header('X-FRAME-OPTIONS: DENY');
 
 session_start();
