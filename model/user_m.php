@@ -1,21 +1,18 @@
 <?php
-function get_user($db, $user_id){
+function get_user($db, $user_id, $is_another_user = false) {
   $params = [
     $user_id
   ];
-  $sql = "
-    SELECT
-      user_id, 
-      user_name,
-      password,
-      user_type
-    FROM
-      users_t
-    WHERE
-      user_id = ?
-    LIMIT 1
-  ";
+  $sql = 'SELECT user_id, user_name';
+  if ($is_another_user === false) {
+    $sql .= ', password, user_type';
+  }
+  $sql .= '
+          FROM users_t
+          WHERE user_id = ?
+          LIMIT 1';
 
+          
   return fetch_query($db, $sql, $params);
 }
 
@@ -41,7 +38,7 @@ function get_user_by_name($db, $user_name){
 
 function login_as($db, $user_name, $password){
   $user = get_user_by_name($db, $user_name);
-  // ログイン情報の照合(入力PWとハッシュ化PWの照合も実装)
+  // ログイン情報の照合(入力PWとハッシュ化PWの照合)
   if($user === false || password_verify($password, $user['password']) === false){
     return false;
   }
@@ -328,11 +325,11 @@ function get_following_user($db, $user_id, $follower_id){
   return fetch_query($db, $sql, $params);
 }
 
-function is_own_user($user, $follower_id) {
+function is_own_user($user, $target_user_id) {
   if (is_array($user) === false) {
     return false;
   }
-  if ($user['user_id'] !== (int)$follower_id) {
+  if ($user['user_id'] !== (int)$target_user_id) {
     return false;
   }
   return true;

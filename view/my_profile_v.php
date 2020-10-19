@@ -3,10 +3,10 @@
 <head>
   <?php include VIEW_PATH . 'templates/responsive.php'; ?>
   <?php include VIEW_PATH . 'templates/icon.php'; ?>
-  <title>マイページ</title>
+  <title><?php print $user['user_name']; ?>さんのマイページ</title>
   <link rel="stylesheet" href="<?php print STYLESHEET_PATH . 'common.css'; ?>">
   <link rel="stylesheet" href="<?php print STYLESHEET_PATH . 'logined.css'; ?>">
-  <link rel="stylesheet" href="<?php print STYLESHEET_PATH . 'account.css'; ?>">
+  <link rel="stylesheet" href="<?php print STYLESHEET_PATH . 'profile.css'; ?>">
   <style>
   /* * {
    outline: solid 1px;
@@ -32,17 +32,15 @@
     <div class="container">
       <h2>プロフィール</h2>
       <?php include VIEW_PATH . 'templates/messages.php'; ?>
-      <div>ユーザー名:<span><?php print $user['user_name']; ?></span></div>
-      <div class="follow">
-<!-- <a>のそれぞれのリンクのレスポンスを受けたときにクラス名（btn-outline-dark）の箇所を変える関数を作る -->
+      <div>ユーザー名: <span><?php print $user['user_name']; ?></span></div>
+      <div class="follow_count">
         <a href="?followings=1" class="<?php print $button['followings']['class']; ?>"<?php print $button['followings']['disabled']; ?> role="button">フォロー <?php print $follow_count['followings']; ?></a>
         <a href="?followers=1" class="<?php print $button['followers']['class']; ?>"<?php print $button['followers']['disabled']; ?> role="button">フォロワー <?php print $follow_count['followers']; ?></a>
       </div>
       <div class="profile_bar">
-        <a href="?own_posts=1" class="<?php print $button['own_posts']['class']; ?>"<?php print $button['own_posts']['disabled']; ?> role="button"><?php print $user['user_name']; ?>さんの投稿記事</a>
+        <a href="?own_posts=1" class="<?php print $button['own_posts']['class']; ?>"<?php print $button['own_posts']['disabled']; ?> role="button">自分の投稿記事</a>
         <a href="?favorite_posts=1" class="<?php print $button['favorite_posts']['class']; ?>"<?php print $button['favorite_posts']['disabled']; ?> role="button">お気に入り記事</a>
         <a href="?favorite_languages=1" class="<?php print $button['favorite_languages']['class']; ?>"<?php print $button['favorite_languages']['disabled']; ?> role="button">興味があるジャンル</a>
-<!-- <a>のそれぞれのリンクのレスポンスを受けたときにクラス名（btn-outline-dark）の箇所を変える関数を作る -->
       </div>
 
 
@@ -50,64 +48,52 @@
       <!-- aria-disabled="true" -->
 
 <!-- フォローをクリックした場合 -->
-<?php if ($get_link === MY_PROFILE_LINK['followings']) { ?>
+<?php if ($get_link === PROFILE_LINK['followings']) { ?>
       <article class="follow_list">
         <h4>フォロー リスト</h4>
   <?php if ($response_link !== []) { ?>
-        <table>
     <?php foreach ($response_link as $following) { ?>
-          <tr>
-            <td>
-              <a href="others_profile.php?user=<?php print $following['user_id']; ?>"><?php print $following['user_name']; ?></a>                  
-            </td>
-            <td>
-              <form method="post" action="following_user_delete.php">
-                <input type="hidden" name="follower_id" value="<?php print $following['user_id']; ?>">
-                <button type="submit" class="btn btn-light"><i class="fas fa-heart following"></i> フォロー中</button>
-              </form>
-            </td>
-          </tr>
+        <section>
+          <a href="another_profile.php?user=<?php print $following['user_id']; ?>"><?php print $following['user_name']; ?></a>
+          <form method="post" action="following_user_delete.php">
+            <input type="hidden" name="follower_id" value="<?php print $following['user_id']; ?>">
+            <button type="submit" class="btn btn-light"><i class="fas fa-heart following"></i> フォロー中</button>
+          </form>
+        </section>
     <?php } ?>
-        </table>
   <?php } else { ?>
         <p>フォロー中のユーザーはいません</p>
   <?php } ?>
       </article>
-      
+
 <!-- フォロワーをクリックした場合 -->
-<?php } else if ($get_link === MY_PROFILE_LINK['followers']) { ?>
+<?php } else if ($get_link === PROFILE_LINK['followers']) { ?>
       <article class="follow_list">
         <h4>フォロワー リスト</h4>
   <?php if ($response_link !== []) { ?>
-            <table>
     <?php foreach ($response_link as $follower) { ?>
-              <tr>
-                <td>
-                  <a href="others_profile.php?user=<?php print $follower['user_id']; ?>"><?php print $follower['user_name']; ?></a>                  
-                </td>
-                <td>
-      <?php if (is_following_user($db, $user, $follower['user_id']) === false) { ?>      
-                  <form method="post" action="following_user_register.php">
-                    <input type="hidden" name="follower_id" value="<?php print $follower['user_id']; ?>">
-                    <button type="submit" class="btn btn-warning"><i class="fas fa-heart"></i> フォローする</button>
-                  </form>
+        <section>
+          <a href="another_profile.php?user=<?php print $follower['user_id']; ?>"><?php print $follower['user_name']; ?></a>
+      <?php if (is_following_user($db, $user, $follower['user_id']) === false) { ?>
+          <form method="post" action="following_user_register.php">
+            <input type="hidden" name="follower_id" value="<?php print $follower['user_id']; ?>">
+            <button type="submit" class="btn btn-warning"><i class="fas fa-heart"></i> フォローする</button>
+          </form>
       <?php } else { ?>
-                  <form method="post" action="following_user_delete.php">
-                    <input type="hidden" name="follower_id" value="<?php print $follower['user_id']; ?>">
-                    <button type="submit" class="btn btn-light"><i class="fas fa-heart following"></i> フォロー中</button>
-                  </form>
+          <form method="post" action="following_user_delete.php">
+            <input type="hidden" name="follower_id" value="<?php print $follower['user_id']; ?>">
+            <button type="submit" class="btn btn-light"><i class="fas fa-heart following"></i> フォロー中</button>
+          </form>
       <?php } ?>
-                </td>
-              </tr>
+        </section>
     <?php } ?>
-            </table>
   <?php } else { ?>
             <p>フォロー中のユーザーはいません</p>
   <?php } ?>
-          </article>
+      </article>
 
 <!-- 自分の投稿記事をクリックした場合 -->
-<?php } else if ($get_link === MY_PROFILE_LINK['own_posts']) { ?>
+<?php } else if ($get_link === PROFILE_LINK['own_posts']) { ?>
           <article class="post">
   <?php if ($response_link !== []) { ?>
     <?php foreach ($response_link as $own_post) { ?>
@@ -117,7 +103,10 @@
                 <div><img src="<?php print $own_post['title_image']; ?>"></div>
                 <h4><?php print $own_post['title']; ?></h4>
                 <div><?php print $own_post['body']; ?></div>
-                <div>ジャンル:<?php print PERMITTED_LANGUAGE_TYPES[$own_post['language_type']]; ?></div>
+                <div>ジャンル: <?php print PERMITTED_LANGUAGE_TYPES[$own_post['language_type']]; ?></div>
+                <div>投稿日時:
+                  <div><?php print $own_post['created']; ?></div>
+                </div>
               </div>
             </section>
     <?php } ?>
@@ -127,7 +116,7 @@
           </article>
 
 <!-- お気に入り記事をクリックした場合 -->
-<?php } else if ($get_link === MY_PROFILE_LINK['favorite_posts']) { ?>
+<?php } else if ($get_link === PROFILE_LINK['favorite_posts']) { ?>
           <article class="post">
   <?php if ($response_link !== []) { ?>
     <?php foreach ($response_link as $favorite_post) { ?>
@@ -137,8 +126,13 @@
                 <div><img src="<?php print $favorite_post['title_image']; ?>"></div>
                 <h4><?php print $favorite_post['title']; ?></h4>
                 <div><?php print $favorite_post['body']; ?></div>
-                <div>ジャンル:<?php print PERMITTED_LANGUAGE_TYPES[$favorite_post['language_type']]; ?></div>
-                <div>投稿者:<?php print $favorite_post['user_name']; ?></div>
+                <div>ジャンル: <?php print PERMITTED_LANGUAGE_TYPES[$favorite_post['language_type']]; ?></div>
+                <div class="post_user">
+                  <a href="another_profile.php?user=<?php print $favorite_post['user_id']; ?>" class="btn btn-outline-success" role="button">投稿者: <?php print $favorite_post['user_name']; ?></a>
+                  <div>投稿日時:
+                    <div><?php print $favorite_post['created']; ?></div>
+                  </div>
+                </div>
                 <div class="favorite_button_area">
       <?php if (is_following_user($db, $user, $favorite_post['user_id']) === false) { ?>
                   <form method="post" action="following_user_register.php">
@@ -165,7 +159,7 @@
           </article>
 
 <!-- 興味があるジャンルをクリックした場合 -->
-<?php } else if ($get_link === MY_PROFILE_LINK['favorite_languages']) { ?>
+<?php } else if ($get_link === PROFILE_LINK['favorite_languages']) { ?>
           <article class="favorite_languages">
             <form method="post" action="favorite_languages_change.php">
               <div class="form-group">
