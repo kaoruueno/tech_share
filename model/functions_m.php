@@ -321,5 +321,9 @@ function is_even($int) {
     return true;
   }
   return false;
-} 
+}
+
+function is_open($article){
+  return $article['status'] === 1;
+}
 ?>

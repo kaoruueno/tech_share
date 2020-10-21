@@ -211,6 +211,90 @@ function register_post($db, $user_id, $title, $title_img_file, $body, $language_
 
   return execute_query($db, $sql, $params);
 }
+
+function is_valid_post_id_for_post_delete($db, $user, $post_id) {
+  if ($post_id === false || $post_id === '') {
+    return false;
+  }
+  if (is_positive_int($post_id) === false) {
+    return false;
+  }
+  if (is_register_post($db, $post_id) === false) {
+    return false;
+  }
+  if (is_own_post($db, $user, $post_id) === false && is_admin($user) === false) {
+    return false;
+  }
+  return true;
+}
+
+function delete_post_transaction($db, $post_id) {
+  $db->beginTransaction();
+  delete_post_from_favorite_posts_table($db, $post_id);
+  delete_post_from_posts_table($db, $post_id);
+  if (has_error() === false) {
+    $db->commit();
+    return true;
+  } else {
+    $db->rollback();
+    return false; 
+  }
+}
+function delete_post_from_favorite_posts_table($db, $post_id) {
+  $params = [$post_id];
+  $sql = 'DELETE FROM favorite_posts
+          WHERE post_id = ?';
+
+  return execute_query($db, $sql, $params);
+}
+function delete_post_from_posts_table($db, $post_id) {
+  $params = [$post_id];
+  $sql = 'DELETE FROM posts
+          WHERE post_id = ?';
+
+  return execute_query($db, $sql, $params);
+}
+
+
+// function change_favorite_languages_transaction($db, $user, $language_types) {
+//   $change_favorite_languages = get_favorite_languages_to_operate($db, $user, $language_types);
+//   if ($change_favorite_languages === []) {
+//     return '';
+//   }
+//   $db->beginTransaction();
+//   foreach ($change_favorite_languages as $key => $value) {
+//     if ($value === 'delete') {
+//       delete_favorite_language($db, $user['user_id'], $key);
+//     }
+//     if ($value === 'insert') {
+//       insert_favorite_language($db, $user['user_id'], $key);
+//     }
+//   }
+//   if (has_error() === false) {
+//     $db->commit();
+//     return true;
+//   } else {
+//     $db->rollback();
+//     return false; 
+//   }
+// }
+
+// function signup_transaction($db, $user_name, $password, $language_types) {
+//   $db->beginTransaction();
+//   insert_user($db, $user_name, $password);
+//   $user_id = $db->lastInsertId('user_id');
+//   foreach ($language_types as $value) {
+//     insert_favorite_language($db, $user_id, $value);
+//   }
+//   if (has_error() === false) {
+//     $db->commit();
+//     return true;
+//   } else {
+//     $db->rollback();
+//     return false; 
+//   }
+// }
+
 // // 仮
 // function get_post_data_trim_space($key) {
 //   $str = '';

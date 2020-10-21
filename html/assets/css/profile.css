@@ -57,17 +57,17 @@ a.link_whole_parent {
   text-decoration: none;
   color: #000000;
 }
-.post_user {
+.post_details {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.post_user>a {
+.post>section>div>a:not(.link_whole_parent), .favorite_button_area button, .delete_button_area button {
   position: relative;
   z-index: 2;
 }
-.post>section>div>div:not(:last-of-type) {
-  padding-bottom: 1rem;
+.post>section>div>div:not(:last-of-type), .delete_button_area {
+  margin-bottom: 0.5rem;
 }
 .post>section img {
   width: 100%;
@@ -77,11 +77,12 @@ a.link_whole_parent {
   position: relative;
   display: flex;
   justify-content: space-between;
+  margin-top: 0.5rem;
 }
-.favorite_button_area * {
+/* .favorite_button_area * {
   position: relative;
   z-index: 2;
-}
+} */
 
 .favorite_languages {
   display: flex;

@@ -68,8 +68,8 @@ function register_user($db, $user_name, $password, $password_confirmation, $lang
   return insert_user($db, $user_name, $password);
 }
 
-function is_admin($user){
-  return $user['type'] === USER_TYPE_ADMIN;
+function is_admin($user) {
+  return $user['user_type'] === USER_TYPE_ADMIN;
 }
 
 function is_valid_user($user_name, $password, $password_confirmation, $language_types) {

@@ -101,11 +101,25 @@
               <div>
                 <a class="link_whole_parent" href="article.php?post=<?php print $own_post['post_id']; ?>"></a>
                 <div><img src="<?php print $own_post['title_image']; ?>"></div>
+
+
+      <?php if (is_own_post($db, $user, $own_post['post_id']) === true) { ?>
+                <!-- <div class="privacy_button_area"> -->
+                  <form class="delete_button_area" method="post" action="post_delete.php">
+                    <input type="hidden" name="post_id" value="<?php print $own_post['post_id']; ?>">
+                    <button type="submit" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i> 投稿削除</button>
+                  </form>
+                <!-- </div> -->
+      <?php } ?>
+
+
                 <h4><?php print $own_post['title']; ?></h4>
                 <div><?php print $own_post['body']; ?></div>
-                <div>ジャンル: <?php print PERMITTED_LANGUAGE_TYPES[$own_post['language_type']]; ?></div>
-                <div>投稿日時:
-                  <div><?php print $own_post['created']; ?></div>
+                <div class="post_details">
+                  <div>ジャンル: <?php print PERMITTED_LANGUAGE_TYPES[$own_post['language_type']]; ?></div>
+                  <div>投稿日時:
+                    <div><?php print $own_post['created']; ?></div>
+                  </div>
                 </div>
               </div>
             </section>
@@ -124,15 +138,21 @@
               <div>
                 <a class="link_whole_parent" href="article.php?post=<?php print $favorite_post['post_id']; ?>"></a>
                 <div><img src="<?php print $favorite_post['title_image']; ?>"></div>
+      <?php if (is_admin($user) === true) { ?>
+                <form class="delete_button_area" method="post" action="post_delete.php">
+                  <input type="hidden" name="post_id" value="<?php print $own_post['post_id']; ?>">
+                  <button type="submit" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i> 投稿削除</button>
+                </form>
+      <?php } ?>
                 <h4><?php print $favorite_post['title']; ?></h4>
                 <div><?php print $favorite_post['body']; ?></div>
-                <div>ジャンル: <?php print PERMITTED_LANGUAGE_TYPES[$favorite_post['language_type']]; ?></div>
-                <div class="post_user">
-                  <a href="another_profile.php?user=<?php print $favorite_post['user_id']; ?>" class="btn btn-outline-success" role="button">投稿者: <?php print $favorite_post['user_name']; ?></a>
+                <div class="post_details">
+                  <div>ジャンル: <?php print PERMITTED_LANGUAGE_TYPES[$favorite_post['language_type']]; ?></div>
                   <div>投稿日時:
                     <div><?php print $favorite_post['created']; ?></div>
                   </div>
                 </div>
+                <a href="another_profile.php?user=<?php print $favorite_post['user_id']; ?>" class="btn btn-outline-success" role="button">投稿者: <?php print $favorite_post['user_name']; ?></a>
                 <div class="favorite_button_area">
       <?php if (is_following_user($db, $user, $favorite_post['user_id']) === false) { ?>
                   <form method="post" action="following_user_register.php">
