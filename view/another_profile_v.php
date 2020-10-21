@@ -114,7 +114,7 @@
   <?php } ?>
           </article>
 
-<!-- 自分の投稿記事をクリックした場合 -->
+<!-- ユーザー名さんの投稿記事をクリックした場合 -->
 <?php } else if ($get_link === PROFILE_LINK['own_posts']) { ?>
           <article class="post">
   <?php if ($response_link !== []) { ?>
@@ -125,11 +125,12 @@
                 <div><img src="<?php print $own_post['title_image']; ?>"></div>
                 <h4><?php print $own_post['title']; ?></h4>
                 <div><?php print $own_post['body']; ?></div>
-                <div>ジャンル: <?php print PERMITTED_LANGUAGE_TYPES[$own_post['language_type']]; ?></div>
-                <div>投稿日時:
-                  <div><?php print $own_post['created']; ?></div>
+                <div class="post_details">
+                  <div>ジャンル: <?php print PERMITTED_LANGUAGE_TYPES[$own_post['language_type']]; ?></div>
+                  <div>投稿日時:
+                    <div><?php print $own_post['created']; ?></div>
+                  </div>
                 </div>
-      <?php if (is_own_user($user, $another_user['user_id']) === false) { ?>
                 <div class="favorite_button_area">
         <?php if (is_following_user($db, $user, $another_user['user_id']) === false) { ?>
                   <form method="post" action="following_user_register.php">
@@ -154,7 +155,6 @@
                   </form>
         <?php } ?>
                 </div>
-      <?php } ?>
               </div>
             </section>
     <?php } ?>
@@ -174,17 +174,18 @@
                 <div><img src="<?php print $favorite_post['title_image']; ?>"></div>
                 <h4><?php print $favorite_post['title']; ?></h4>
                 <div><?php print $favorite_post['body']; ?></div>
-                <div>ジャンル: <?php print PERMITTED_LANGUAGE_TYPES[$favorite_post['language_type']]; ?></div>
-                <div class="post_user">
-      <?php if (is_own_user($user, $favorite_post['user_id']) === true) { ?>
-                  <a href="my_profile.php" class="btn btn-outline-dark" role="button">投稿者: <?php print $favorite_post['user_name']; ?></a>
-      <?php } else { ?>
-                  <a href="another_profile.php?user=<?php print $favorite_post['user_id']; ?>" class="btn btn-outline-success" role="button">投稿者: <?php print $favorite_post['user_name']; ?></a>
-      <?php } ?>
+
+                <div class="post_details">
+                  <div>ジャンル: <?php print PERMITTED_LANGUAGE_TYPES[$favorite_post['language_type']]; ?></div>
                   <div>投稿日時:
                     <div><?php print $favorite_post['created']; ?></div>
                   </div>
                 </div>
+      <?php if (is_own_user($user, $favorite_post['user_id']) === true) { ?>
+                <a href="my_profile.php" class="btn btn-outline-dark" role="button">投稿者: <?php print $favorite_post['user_name']; ?></a>
+      <?php } else { ?>
+                <a href="another_profile.php?user=<?php print $favorite_post['user_id']; ?>" class="btn btn-outline-success" role="button">投稿者: <?php print $favorite_post['user_name']; ?></a>
+      <?php } ?>
       <?php if (is_own_user($user, $favorite_post['user_id']) === false) { ?>
                 <div class="favorite_button_area">
         <?php if (is_following_user($db, $user, $favorite_post['user_id']) === false) { ?>

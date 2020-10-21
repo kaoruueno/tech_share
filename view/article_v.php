@@ -36,6 +36,18 @@
 <?php if ($article['title_image'] !== '') { ?>          
           <div><img src="<?php print $article['title_image']; ?>"></div>
 <?php } ?>
+
+
+<?php if (is_own_post($db, $user, $article['post_id']) === true || is_admin($user) === true) { ?>
+          <!-- <div class="privacy_button_area"> -->
+            <form class="delete_button_area" method="post" action="post_delete.php">
+              <input type="hidden" name="post_id" value="<?php print $article['post_id']; ?>">
+              <button type="submit" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i> 投稿削除</button>
+            </form>
+          <!-- </div> -->
+<?php } ?>
+
+
           <h3><?php print $article['title']; ?></h3>
           <div>ジャンル:<?php print PERMITTED_LANGUAGE_TYPES[$article['language_type']]; ?></div>
           <div class="post_user">

@@ -29,12 +29,13 @@ header {
 .post_warning>span:nth-child(2) {
   margin-left: auto;
 }
-/* 登録されているか否かで色変える */
-.fa-heart {
-  font-size: 1rem;
-  color: #6c757d;
+
+.delete_button_area {
+  text-align: right;
 }
-.fa-thumbs-up {
+
+/* アイコン */
+.fas {
   font-size: 1rem;
   color: #6c757d;
 }
@@ -44,4 +45,9 @@ i.favorite_post {
 i.following {
   color: red;
 }
-/* 登録されているか否かで色変える */
+i.open {
+  color: #28a745;
+}
+i.fa-lock {
+  color: #4628ff;
+}
