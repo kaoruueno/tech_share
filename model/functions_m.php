@@ -226,6 +226,17 @@ function is_language_type($string){
   return is_valid_format($string, REGEX_LANGUAGE_TYPE);
 }
 
+function is_display_order($string) {
+  return is_valid_format($string, REGEX_DISPLAY_ORDER);
+}
+
+function is_sort_by_newest($string) {
+  return is_sort_by_oldest($string) !== true;
+}
+function is_sort_by_oldest($string) {
+  return is_valid_format($string, REGEX_SORT_BY_OLDEST);
+}
+
 function is_valid_format($string, $format){
   return preg_match($format, $string) === 1;
 }
@@ -321,9 +332,5 @@ function is_even($int) {
     return true;
   }
   return false;
-}
-
-function is_open($article){
-  return $article['status'] === 1;
 }
 ?>

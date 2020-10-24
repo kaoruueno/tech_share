@@ -297,22 +297,4 @@ function is_valid_another_user_id($db, $user, $another_user_id) {
 function get_accessed_another_user($db, $another_user_id, $is_another_user = true) {
   return get_user($db, $another_user_id, $is_another_user);
 }
-
-// function get_accessed_another_user_session($db) {
-//   $another_user_id = get_session('another_user_id');
-//   if ($another_user_id === '') {
-//     return '';
-//   }
-//   return get_user($db, $another_user_id, $is_another_user = true);
-// }
-
-function set_new_accessed_another_user_session($get_another_user_id, $another_user_session) {
-  if ($get_another_user_id === '' && $another_user_session === '') {
-    return false;
-  }
-  if ($get_another_user_id !== '') {
-    set_session('another_user_id', (int)$get_another_user_id);
-  }
-  return true;
-}
 ?>

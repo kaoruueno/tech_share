@@ -32,6 +32,8 @@ define('POST_PRE_URL', '/post_pre.php');
 define('REGEX_ALPHANUMERIC', '/^[0-9a-zA-Z]+$/');
 define('REGEX_POSITIVE_INT', '/^([1-9][0-9]*|0)$/');
 define('REGEX_LANGUAGE_TYPE', '/^[0-4]$/');
+define('REGEX_DISPLAY_ORDER', '/^[0-1]$/');
+define('REGEX_SORT_BY_OLDEST', '/^[1]$/');
 define('REGEX_WHITE_SPACE', '/^[\s　]+$/u');
 define('REGEX_BOTH_ENDS_WHITE_SPACE', '/^[\s　]*(.+?)[\s　]*$/u');
 define('REGEX_IMAGE', '/\[([\w]{10})(\.png|\.jpg)\]/');
@@ -59,6 +61,11 @@ define('PROFILE_LINK', array(
   'favorite_posts' => 4,
   'favorite_languages' => 5,
   'no_request' => 0
+));
+
+define('DISPLAY_ORDER', array(
+  0 => '新着順',
+  1 => '投稿順'
 ));
 
 define('NO_IMAGE', 'no_image.png');

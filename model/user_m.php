@@ -16,6 +16,18 @@ function get_user($db, $user_id, $is_another_user = false) {
   return fetch_query($db, $sql, $params);
 }
 
+function get_users($db, $display_order = 0) {
+  $params = [];
+  $sql = 'SELECT user_id, user_name
+          FROM users_t';
+  if ($display_order === 0) {
+    $sql .= ' ORDER BY user_id DESC';
+  } else {
+    $sql .= ' ORDER BY user_id';
+  }
+  return fetch_all_query($db, $sql, $params);
+}
+
 function get_user_by_name($db, $user_name){
   $params = [
     $user_name
@@ -69,6 +81,9 @@ function register_user($db, $user_name, $password, $password_confirmation, $lang
 }
 
 function is_admin($user) {
+  if (isset($user['user_type']) === false) {
+    return false;
+  }
   return $user['user_type'] === USER_TYPE_ADMIN;
 }
 
