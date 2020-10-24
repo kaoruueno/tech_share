@@ -140,7 +140,7 @@
                 <div><img src="<?php print $favorite_post['title_image']; ?>"></div>
       <?php if (is_admin($user) === true) { ?>
                 <form class="delete_button_area" method="post" action="post_delete.php">
-                  <input type="hidden" name="post_id" value="<?php print $own_post['post_id']; ?>">
+                  <input type="hidden" name="post_id" value="<?php print $favorite_post['post_id']; ?>">
                   <button type="submit" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i> 投稿削除</button>
                 </form>
       <?php } ?>
@@ -196,12 +196,11 @@
           </article>
 <?php } ?>
 
-      <section class="display_count">○○○件中 ○ - ○件目の記事</section>
-      <section class="pagination">
-        <div>最初へ 前へ 1 2 3 4 5 次へ 最後へ</div>
-      </section>
-      <!-- if文 ページネーション(order_view.phpを見ながら) -->
-    </article>
+    <section class="display_count">○○○件中 ○ - ○件目の記事</section>
+    <section class="pagination">
+      <div>最初へ 前へ 1 2 3 4 5 次へ 最後へ</div>
+    </section>
+    <!-- if文 ページネーション(order_view.phpを見ながら) -->
   </main>
   <?php include VIEW_PATH . 'templates/menubar.php'; ?>
 </body>

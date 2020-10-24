@@ -22,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
   }
   redirect_to(INDEX_URL);
 }
-// これを別ページで書く！！！
 $another_user_id = get_get('user');
 $followings = get_get('followings');
 $followers = get_get('followers');
