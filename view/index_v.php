@@ -29,23 +29,65 @@
 <body>
   <?php include VIEW_PATH . 'templates/header.php'; ?>
   <main>
-    <nav class="languagebar">
+    <!-- <nav class="languagebar">
       <a href="#" class="btn btn-outline-success" role="button">全て</a>
       <a href="#" class="btn btn-outline-success" role="button">HTML/CSS</a>
       <a href="#" class="btn btn-outline-success" role="button">JavaScript</a>
       <a href="#" class="btn btn-outline-success" role="button">PHP</a>
       <a href="#" class="btn btn-outline-success" role="button">MySQL</a>
       <a href="#" class="btn btn-outline-success" role="button">その他</a>
-    </nav>
+    </nav> -->
     <div class="container">
-      <div class="display_side">
-        <h2>記事一覧</h2>
-        <form method="post" class="form-inline">
+      <!-- <div class="display_side"> -->
+      <h2>記事一覧</h2>
+        <!-- <form method="post" class="form-inline">
           <input type="search" class="form-control" name="search">
           <input type="submit" class="btn btn-success" value="記事検索">
         </form>
-      </div>
+      </div> -->
       <?php include VIEW_PATH . 'templates/messages.php'; ?>
+
+
+
+      <form class="search_form">
+        <div>
+          <label>表示順:
+            <select name="display_order">
+              <option value="0"<?php print $display_order_selected[0]; ?>><?php print DISPLAY_ORDER[0]; ?></option>
+              <option value="1"<?php print $display_order_selected[1]; ?>><?php print DISPLAY_ORDER[1]; ?></option>
+            </select>
+          </label>
+          <label>記事のジャンル:
+            <select name="language_type">
+              <option value="">全て</option>
+<?php foreach (PERMITTED_LANGUAGE_TYPES as $key => $value) { ?>
+             <option value="<?php print $key; ?>"<?php print $language_type_selected[$key]; ?>><?php print $value; ?></option>
+<?php } ?>
+            </select>
+          </label>
+          <label>キーワード: <input type="text" name="keyword"  value="<?php print $keyword_selected; ?>"></label>
+        </div>
+        <div>
+          <div>検索条件: 
+            <span class="badge badge-pill badge-success"><?php print DISPLAY_ORDER[$get_search['display_order']]; ?></span>
+          <?php if ($get_search['language_type'] !== '') { ?>
+            <span class="badge badge-pill badge-success"><?php print PERMITTED_LANGUAGE_TYPES[$get_search['language_type']]; ?></span>
+          <?php } ?>
+          <?php foreach ($display_keyword as $value) { ?>
+            <span class="badge badge-pill badge-success"><?php print $value; ?></span>
+          <?php } ?>
+          </div>
+          <div class="submit_area">
+            <button type="submit" class="btn btn-success">絞り込み検索</button>
+        <?php if ($get_search['user_id'] !== '' || $get_search['language_type'] !== '') { ?>
+            <a href="index.php" class="btn btn-secondary" role="button">絞り込み解除</a>
+        <?php } ?>
+          </div>
+        </div>
+      </form>
+
+
+
       <article>
 <?php foreach ($articles as $key => $value) { ?>
         <section>

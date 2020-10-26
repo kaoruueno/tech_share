@@ -1,5 +1,5 @@
 <?php
-function get_articles($db, $user_id = '', $language_type = '', $display_order = 0) {
+function get_articles($db, $display_order = 0, $language_type = '', $user_id = '', $keyword = []) {
   $params = [];
   $sql = '
     SELECT
@@ -26,6 +26,15 @@ function get_articles($db, $user_id = '', $language_type = '', $display_order = 
   if ($language_type !== '') {
     $params[] = $language_type;
     $sql .= ' AND language_type = ?';
+  }
+  foreach ($keyword as $key => $value) {
+    // プレースホルダ「?」の数だけ$paramsにバインドする値を代入する
+    $params[] = $value;
+    $params[] = $value;
+    $params[] = $value;
+    $sql .= ' AND (users_t.user_name LIKE ?
+              OR title LIKE ?
+              OR body LIKE ?)';
   }
   if ($display_order === 0) {
     $sql .= ' ORDER BY post_id DESC';
@@ -81,8 +90,9 @@ function get_article($db, $post_id) {
 //   return fetch_all_query($db, $sql);
 // }
 
-function get_all_articles($db, $user_id = '', $language_type = '', $display_order = 0) {
-  $articles = get_articles($db, $user_id, $language_type, $display_order);
+function get_searched_articles($db, $display_order = 0, $language_type = '', $user_id = '', $keyword = []) {
+// dd(get_articles($db, $display_order, $language_type, $user_id, $keyword));
+  $articles = get_articles($db, $display_order, $language_type, $user_id, $keyword);
   return convert_shortened_articles($articles);
 }
   
@@ -148,7 +158,7 @@ function get_body_for_article($body) {
   return preg_replace(REGEX_IMAGE, '<div><img src="'. IMAGE_PATH . '$1$2"></div>', $body);
 }
 
-function get_valid_search_criteria($db, $display_order, $language_type, $user_id) {
+function get_valid_search_criteria_for_admin($db, $display_order, $language_type, $user_id) {
   $search_criteria = [];
   if (is_sort_by_newest($display_order) === false) {
     $display_order = 1;
@@ -201,5 +211,47 @@ function get_user_selected($all_users, $user_id) {
     $user_selected[$key] = $selected;
   }
   return $user_selected;
+}
+
+function get_valid_search_criteria_for_index($db, $display_order, $language_type, $keyword) {
+  $search_criteria = [];
+  if (is_sort_by_newest($display_order) === false) {
+    $display_order = 1;
+  } else {
+    $display_order = 0;
+  }
+  $search_criteria['display_order'] = $display_order;
+
+  if (is_language_type($language_type) === false) {
+    $language_type = '';
+  }
+  $search_criteria['language_type'] = $language_type;
+
+  $search_criteria['keyword'] = convert_valid_search_keyword_array($keyword);
+  return $search_criteria;
+}
+
+function convert_valid_search_keyword_array($keyword) {
+  $keyword_array = convert_display_search_keyword_array($keyword);
+  foreach ($keyword_array as $key => $value) {
+    // LIKE演算子中で特別な意味を持つ文字を「\」でエスケープ(特殊文字:「_」「%」、エスケープ文字:「\」)
+    $value = '%' . addcslashes($value, '\_%') . '%';
+    $keyword_array[$key] = $value;
+  }
+  return $keyword_array;
+}
+
+function convert_display_search_keyword_array($keyword) {
+  $keyword = convert_valid_search_keyword_str($keyword);
+  if ($keyword === false || $keyword === '') {
+    return [];
+  }
+  return explode(" ", $keyword);
+}
+
+function convert_valid_search_keyword_str($keyword) {
+  $keyword = convert_all_space_into_half_width_space($keyword);
+  $keyword = trim($keyword);
+  return trim_duplicate_spaces($keyword);
 }
 ?>
