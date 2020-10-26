@@ -34,8 +34,10 @@ define('REGEX_POSITIVE_INT', '/^([1-9][0-9]*|0)$/');
 define('REGEX_LANGUAGE_TYPE', '/^[0-4]$/');
 define('REGEX_DISPLAY_ORDER', '/^[0-1]$/');
 define('REGEX_SORT_BY_OLDEST', '/^[1]$/');
-define('REGEX_WHITE_SPACE', '/^[\s　]+$/u');
+define('REGEX_WHITE_SPACE', '/[\s　]/u');
+define('REGEX_ONLY_WHITE_SPACE', '/^[\s　]+$/u');
 define('REGEX_BOTH_ENDS_WHITE_SPACE', '/^[\s　]*(.+?)[\s　]*$/u');
+define('REGEX_DUPLICATE_WHITE_SPACE', '/[\s　]{2,}/u');
 define('REGEX_IMAGE', '/\[([\w]{10})(\.png|\.jpg)\]/');
 
 define('USER_NAME_LENGTH_MIN', 6);

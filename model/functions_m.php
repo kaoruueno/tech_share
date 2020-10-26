@@ -246,12 +246,20 @@ function h($str) {
   return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
 }
 
+function convert_all_space_into_half_width_space($str) {
+  return preg_replace(REGEX_WHITE_SPACE, ' ', $str);
+}
+
 function trim_only_space_str($str) {
-  return preg_replace(REGEX_WHITE_SPACE, '', $str);
+  return preg_replace(REGEX_ONLY_WHITE_SPACE, '', $str);
 }
 
 function trim_both_ends_space($str) {
   return preg_replace(REGEX_BOTH_ENDS_WHITE_SPACE, '$1', $str);
+}
+
+function trim_duplicate_spaces($str) {
+  return preg_replace(REGEX_DUPLICATE_WHITE_SPACE, ' ', $str);
 }
 
 // タイトル画像用

@@ -113,8 +113,7 @@ function get_followers($db, $user) {
 }
 
 function get_own_posts($db, $user) {
-  $own_posts = get_articles($db, $user['user_id']);
-  return convert_shortened_articles($own_posts);
+  return get_searched_articles($db, 0, '', $user['user_id']);
 }
 
 function get_favorite_posts($db, $user) {
