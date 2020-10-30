@@ -335,10 +335,46 @@ function convert_unique_value_array($array) {
   return $unique_array;
 }
 
-function is_even($int) {
-  if ($int % 2 === 0) {
-    return true;
+function convert_unique_str_separated_by_space($str) {
+  return implode(' ', convert_unique_value_array(explode(' ', $str)));
+}
+
+function get_all_page($all_count, $count = 6) {
+  return (int)ceil($all_count / $count);
+}
+
+function get_valid_current_page($get_page, $all_page) {
+  if (is_valid_get_page($get_page, $all_page) === false) {
+    return 1;
   }
-  return false;
+  return (int)$get_page;
+}
+function is_valid_get_page($get_page, $all_page){
+  if (is_positive_int($get_page) === false) {
+    return false;
+  }
+  if ((int)$get_page > $all_page || (int)$get_page < 1) {
+    return false;
+  }
+  return true;
+}
+
+function get_display_count($current_page, $all_page, $all_count) {
+  if ($all_count < 1) {
+    $display_count['min'] = 0;
+    $display_count['max'] = 0;
+    return $display_count;
+  }
+  $display_count['min'] = ($current_page-1)*6+1;
+  $display_count['max'] = $current_page*6;
+  if ($current_page === $all_page) {
+    for ($i = 0; $i <= 4; $i++) {
+      if ($display_count['min']+$i === $all_count) {
+        $display_count['max'] = $display_count['min']+$i;
+        break;
+      }
+    }
+  }
+  return $display_count;
 }
 ?>

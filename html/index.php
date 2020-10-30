@@ -15,26 +15,29 @@ if ($user === false) {
   redirect_to(LOGOUT_URL);
 }
 
-
 $display_order = get_get('display_order');
 $language_type = get_get('language_type');
 $keyword = get_get('keyword');
 
-// // 検索項目の「ユーザー名」の選択肢を取得する
-// $all_users = get_users($db);
+$get_page = get_get('page');
+
+
 // 検索条件をバリデーションしつつ正しい値に変更
 $get_search = get_valid_search_criteria_for_index($db, $display_order, $language_type, $keyword);
+
+// ページネーション関係
+$pagination = get_pagination_data_for_index($db, $get_page, $get_search['display_order'], $get_search['language_type'], $get_search['keyword_array'], $get_search['keyword_str']);
+
 // 検索条件に当てはまる記事を取得
-$articles = get_searched_articles($db, $get_search['display_order'], $get_search['language_type'], '', $get_search['keyword']);
+$articles = get_limited_searched_articles($db, $get_search['display_order'], $get_search['language_type'], $get_search['keyword_array'], $pagination['current_page']);
 
 // 検索中の値を検索フォームに表示するためのselected
 $display_order_selected = get_display_order_selected($get_search['display_order']);
 $language_type_selected = get_language_type_selected($get_search['language_type']);
-$keyword_selected = h(convert_valid_search_keyword_str($keyword));
-$display_keyword = entity_array(convert_display_search_keyword_array($keyword));
+$keyword_selected = h($get_search['keyword_str']);
+$display_keyword = entity_array(convert_display_search_keyword_array($get_search['keyword_str']));
 
-// // DBから記事を取得(それぞれの記事に下の処理をする)
-// $articles = get_searched_articles($db);
+// ページネーション
 
 if (has_post_session() === true) {
   set_post_warning('記事の投稿が中断されました。ブラウザを閉じると、中断されたデータは破棄されます。');
