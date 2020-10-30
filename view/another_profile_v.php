@@ -174,7 +174,6 @@
                 <div><img src="<?php print $favorite_post['title_image']; ?>"></div>
                 <h4><?php print $favorite_post['title']; ?></h4>
                 <div><?php print $favorite_post['body']; ?></div>
-
                 <div class="post_details">
                   <div>ジャンル: <?php print PERMITTED_LANGUAGE_TYPES[$favorite_post['language_type']]; ?></div>
                   <div>投稿日時:

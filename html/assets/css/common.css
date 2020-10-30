@@ -30,6 +30,54 @@ header {
   margin-left: auto;
 }
 
+.post {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.post>section:not(:first-of-type):not(:nth-of-type(2)) {
+  margin-top: 0.75rem;
+}
+.post>section>div {
+  position: relative;
+  border: solid 1px #cccccc;
+  width: 450px;
+  padding: 0.5rem;
+}
+a.link_whole_parent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.post>section>div:hover {
+  background-color: rgba(40,167,69,0.1);
+}
+.post_details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.post>section>div>a:not(.link_whole_parent), .favorite_button_area button, .delete_button_area button {
+  position: relative;
+  z-index: 2;
+}
+.post>section>div>div:not(:last-of-type), .delete_button_area {
+  margin-bottom: 0.5rem;
+}
+.post>section img {
+  width: 100%;
+  max-height: 300px;
+}
+.favorite_button_area {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+
 .delete_button_area {
   text-align: right;
 }
@@ -54,6 +102,42 @@ header {
 .submit_area>*:not(:first-child) {
   margin-left: clamp(0px, 1.5rem, 2rem);
 }
+
+/* ページネーション(最大3ページ表示) */
+.pagination_area {
+  text-align: center;
+}
+.pagination_area>div:first-child {
+  margin-bottom: 0.25rem;
+}
+.pagination_area>div {
+  display: flex;
+  justify-content: center;
+}
+.pagination_area>div a {
+  display: block;
+  color: #007bff;
+  background-color: white;
+  text-decoration: none;
+}
+.pagination_area>div .current {
+  color: white;
+  background-color: #007bff;
+}
+.pagination_area>div>* {
+  padding: 0px 0.5rem;
+  border: 1px solid #cccccc;
+  border-collapse: collapse;
+  text-align: center;
+}
+.pagination_area>div a:hover {
+  background-color: rgba(0, 123, 255, 0.3);
+}
+.pagination_area>div>*:not(:last-child) {
+  margin-right: clamp(0px, 0.25rem, 0.5rem);
+}
+/* ページネーション */
+
 
 /* アイコン */
 .fas {

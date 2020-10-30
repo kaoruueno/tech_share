@@ -1,0 +1,38 @@
+<?php
+echo '[ PHP_SELF] : '.$_SERVER['PHP_SELF']."<br/>\n";
+echo '[ GATEWAY_INTERFACE] : '.$_SERVER['GATEWAY_INTERFACE']."<br/>\n";
+echo '[ SERVER_ADDR] : '.$_SERVER['SERVER_ADDR']."<br/>\n";
+echo '[ SERVER_NAME] : '.$_SERVER['SERVER_NAME']."<br/>\n";
+echo '[ SERVER_SOFTWARE] : '.$_SERVER['SERVER_SOFTWARE']."<br/>\n";
+echo '[ SERVER_PROTOCOL] : '.$_SERVER['SERVER_PROTOCOL']."<br/>\n";
+echo '[ REQUEST_METHOD] : '.$_SERVER['REQUEST_METHOD']."<br/>\n";
+echo '[ REQUEST_TIME] : '.$_SERVER['REQUEST_TIME']."<br/>\n";
+echo '[ QUERY_STRING] : '.$_SERVER['QUERY_STRING']."<br/>\n";
+var_dump($_SERVER['QUERY_STRING']);
+echo '[ DOCUMENT_ROOT] : '.$_SERVER['DOCUMENT_ROOT']."<br/>\n";
+echo '[ HTTP_ACCEPT] : '.$_SERVER['HTTP_ACCEPT']."<br/>\n";
+echo '[ HTTP_ACCEPT_CHARSET] : '.$_SERVER['HTTP_ACCEPT_CHARSET']."<br/>\n";
+echo '[ HTTP_ACCEPT_ENCODING] : '.$_SERVER['HTTP_ACCEPT_ENCODING']."<br/>\n";
+echo '[ HTTP_ACCEPT_LANGUAGE] : '.$_SERVER['HTTP_ACCEPT_LANGUAGE']."<br/>\n";
+echo '[ HTTP_CONNECTION] : '.$_SERVER['HTTP_CONNECTION']."<br/>\n";
+echo '[ HTTP_HOST] : '.$_SERVER['HTTP_HOST']."<br/>\n";
+echo '[ HTTP_REFERER] : '.$_SERVER['HTTP_REFERER']."<br/>\n";
+echo '[ HTTP_USER_AGENT] : '.$_SERVER['HTTP_USER_AGENT']."<br/>\n";
+echo '[ HTTPS] : '.$_SERVER['HTTPS']."<br/>\n";
+echo '[ REMOTE_ADDR] : '.$_SERVER['REMOTE_ADDR']."<br/>\n";
+echo '[ REMOTE_HOST] : '.$_SERVER['REMOTE_HOST']."<br/>\n";
+echo '[ REMOTE_PORT] : '.$_SERVER['REMOTE_PORT']."<br/>\n";
+echo '[ SCRIPT_FILENAME] : '.$_SERVER['SCRIPT_FILENAME']."<br/>\n";
+echo '[ SERVER_ADMIN] : '.$_SERVER['SERVER_ADMIN']."<br/>\n";
+echo '[ SERVER_PORT] : '.$_SERVER['SERVER_PORT']."<br/>\n";
+echo '[ SERVER_SIGNATURE] : '.$_SERVER['SERVER_SIGNATURE']."<br/>\n";
+echo '[ PATH_TRANSLATED] : '.$_SERVER['PATH_TRANSLATED']."<br/>\n";
+echo '[ SCRIPT_NAME] : '.$_SERVER['SCRIPT_NAME']."<br/>\n";
+echo '[ REQUEST_URI] : '.$_SERVER['REQUEST_URI']."<br/>\n";
+echo '[ PHP_AUTH_DIGEST] : '.$_SERVER['PHP_AUTH_DIGEST']."<br/>\n";
+echo '[ PHP_AUTH_USER] : '.$_SERVER['PHP_AUTH_USER']."<br/>\n";
+echo '[ PHP_AUTH_PW] : '.$_SERVER['PHP_AUTH_PW']."<br/>\n";
+echo '[ AUTH_TYPE] : '.$_SERVER['AUTH_TYPE']."<br/>\n";
+echo '[ PATH_INFO] : '.$_SERVER['PATH_INFO']."<br/>\n";
+echo '[ ORIG_PATH_INFO] : '.$_SERVER['ORIG_PATH_INFO']."<br/>\n";
+?>
