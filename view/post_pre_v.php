@@ -54,14 +54,16 @@
     <?php } else { ?>
       <?php $selected = ''; ?>
     <?php } ?>
-              <option value="<?php print $key ?>"<?php print $selected ?>><?php print $value ?></option>
+              <option value="<?php print $key; ?>"<?php print $selected; ?>><?php print $value; ?></option>
   <?php } ?>
             </select>
           </label>
         </div>
         <div class="display_button">
-          <a href="post.php" class="btn btn-secondary" role="button">リセット</a>
-          <input type="submit" class="btn btn-success" value="投稿">
+          <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#post_session_delete_modal">投稿キャンセル</button>
+          <?php include VIEW_PATH . 'templates/dialog.php'; ?>
+          <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#post_modal">投稿する</button>
+          <?php include VIEW_PATH . 'templates/dialog.php'; ?>
         </div>
       </form>
     </section>

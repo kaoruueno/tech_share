@@ -79,7 +79,9 @@ a.link_whole_parent {
 }
 
 .delete_button_area {
-  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  /* text-align: right; */
 }
 
 .search_form {
@@ -136,8 +138,6 @@ a.link_whole_parent {
 .pagination_area>div>*:not(:last-child) {
   margin-right: clamp(0px, 0.25rem, 0.5rem);
 }
-/* ページネーション */
-
 
 /* アイコン */
 .fas {
@@ -155,4 +155,9 @@ i.open {
 }
 i.fa-lock {
   color: #4628ff;
+}
+
+/* メッセージ */
+.alert a.btn, .alert a.btn:hover {
+  color: #ffffff;
 }

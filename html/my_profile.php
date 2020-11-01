@@ -45,7 +45,7 @@ $response_link = get_result_requested_profile_link($db, $user, $get_link);
 $follow_count = get_count_followings_and_followers($db, $user);
 
 if (has_post_session() === true) {
-  set_post_warning('記事の投稿が中断されました。ブラウザを閉じると、中断されたデータは破棄されます。');
+  set_post_warning('記事の投稿が中断されました。右のボタンから投稿作業に戻れます。' . "<br>" . 'ブラウザを閉じると、中断された入力データは破棄されます。');
 }
 // $token = get_csrf_token();
 include_once VIEW_PATH . 'my_profile_v.php';
