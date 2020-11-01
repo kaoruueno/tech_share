@@ -83,7 +83,8 @@
           </label>
         </div>
           <button id='add' type="button" class="btn btn-secondary">フォーム追加</button>
-          <input type='submit' class="btn btn-success" value="プレビュー">
+          <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#post_pre_modal">プレビュー</button>
+          <?php include VIEW_PATH . 'templates/dialog.php'; ?>
         </form>
       </section>
     </article>

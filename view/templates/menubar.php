@@ -4,5 +4,8 @@
   <a href="signup.php" class="col text-center text-success"><img src="<?php print LOGO_PATH . 'signup.svg'; ?>"><div>新規登録</div></a>
   <a href="post.php" class="col text-center text-success"><img src="<?php print LOGO_PATH . 'post.svg'; ?>"><div>投稿</div></a>
   <a href="my_profile.php" class="col text-center text-success"><img src="<?php print LOGO_PATH . 'my_profile.svg'; ?>"><div>マイページ</div></a>
-  <a href="logout.php" class="col text-center text-success"><img src="<?php print LOGO_PATH . 'logout.svg'; ?>"><div>ログアウト</div></a>
+  <!-- <a href="logout.php" class="col text-center text-success"><img src="print LOGO_PATH . 'logout.svg';"><div>ログアウト</div></a> -->
+  <a class="btn btn-light col text-center text-success" data-toggle="modal" data-target="#logout_modal"><img src="<?php print LOGO_PATH . 'logout.svg'; ?>"><div>ログアウト</div></a>
+  <!-- buttonでもよさそう -->
+  <?php include VIEW_PATH . 'templates/dialog.php'; ?>
 </aside>

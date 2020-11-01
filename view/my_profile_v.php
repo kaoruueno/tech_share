@@ -57,7 +57,8 @@
           <a href="another_profile.php?user=<?php print $following['user_id']; ?>"><?php print $following['user_name']; ?></a>
           <form method="post" action="following_user_delete.php">
             <input type="hidden" name="follower_id" value="<?php print $following['user_id']; ?>">
-            <button type="submit" class="btn btn-light"><i class="fas fa-heart following"></i> フォロー中</button>
+            <button type="button" class="btn btn-light" data-toggle="modal" data-target="#following_user_delete_modal"><i class="fas fa-heart following"></i> フォロー中</button>
+            <?php include VIEW_PATH . 'templates/dialog.php'; ?>
           </form>
         </section>
     <?php } ?>
@@ -82,7 +83,8 @@
       <?php } else { ?>
           <form method="post" action="following_user_delete.php">
             <input type="hidden" name="follower_id" value="<?php print $follower['user_id']; ?>">
-            <button type="submit" class="btn btn-light"><i class="fas fa-heart following"></i> フォロー中</button>
+            <button type="button" class="btn btn-light" data-toggle="modal" data-target="#following_user_delete_modal"><i class="fas fa-heart following"></i> フォロー中</button>
+            <?php include VIEW_PATH . 'templates/dialog.php'; ?>
           </form>
       <?php } ?>
         </section>
@@ -107,7 +109,8 @@
                 <!-- <div class="privacy_button_area"> -->
                   <form class="delete_button_area" method="post" action="post_delete.php">
                     <input type="hidden" name="post_id" value="<?php print $own_post['post_id']; ?>">
-                    <button type="submit" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i> 投稿削除</button>
+                    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#post_delete_modal"><i class="far fa-trash-alt"></i> 投稿削除</button>
+                    <?php include VIEW_PATH . 'templates/dialog.php'; ?>
                   </form>
                 <!-- </div> -->
       <?php } ?>
@@ -141,7 +144,8 @@
       <?php if (is_admin($user) === true) { ?>
                 <form class="delete_button_area" method="post" action="post_delete.php">
                   <input type="hidden" name="post_id" value="<?php print $favorite_post['post_id']; ?>">
-                  <button type="submit" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i> 投稿削除</button>
+                  <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#post_delete_modal"><i class="far fa-trash-alt"></i> 投稿削除</button>
+                  <?php include VIEW_PATH . 'templates/dialog.php'; ?>
                 </form>
       <?php } ?>
                 <h4><?php print $favorite_post['title']; ?></h4>
@@ -162,12 +166,14 @@
       <?php } else { ?>
                   <form method="post" action="following_user_delete.php">
                     <input type="hidden" name="follower_id" value="<?php print $favorite_post['user_id']; ?>">
-                    <button type="submit" class="btn btn-light"><i class="fas fa-heart following"></i> フォロー中</button>
+                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#following_user_delete_modal"><i class="fas fa-heart following"></i> フォロー中</button>
+                    <?php include VIEW_PATH . 'templates/dialog.php'; ?>
                   </form>
       <?php } ?>
                   <form method="post" action="favorite_post_delete.php">
                     <input type="hidden" name="post_id" value="<?php print $favorite_post['post_id']; ?>">
-                    <button type="submit" class="btn btn-light"><i class="fas fa-thumbs-up favorite_post"></i> お気に入り解除</button>
+                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#favorite_post_delete_modal"><i class="fas fa-thumbs-up favorite_post"></i> お気に入り解除</button>
+                    <?php include VIEW_PATH . 'templates/dialog.php'; ?>
                   </form>
                 </div>
               </div>
@@ -190,17 +196,12 @@
                   <label><input type="checkbox" class="form-check-input" name="language_types[]" value="<?php print $key; ?>"<?php print $response_link[$key]; ?>><?php print $value; ?></label>
                 </div>
   <?php } ?>
-                <div><input type="submit" class="btn btn-success" value="更新"></div>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#favorite_languages_change_modal">変更する</button>
+                <?php include VIEW_PATH . 'templates/dialog.php'; ?>
               </div>
             </form>
           </article>
 <?php } ?>
-
-    <section class="display_count">○○○件中 ○ - ○件目の記事</section>
-    <section class="pagination">
-      <div>最初へ 前へ 1 2 3 4 5 次へ 最後へ</div>
-    </section>
-    <!-- if文 ページネーション(order_view.phpを見ながら) -->
   </main>
   <?php include VIEW_PATH . 'templates/menubar.php'; ?>
 </body>

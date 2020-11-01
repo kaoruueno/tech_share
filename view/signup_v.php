@@ -43,7 +43,7 @@
             <label>パスワード(確認用):<input type="password" class="form-control" name="password_confirmation" placeholder="6~100文字の半角英数字"></label>
           </div>
           <div class="form-group">
-            興味があるジャンル(任意):
+            興味があるジャンル[任意]:
             <input type="hidden" name="language_types" value="">
             <div class="form-check">
               <label><input type="checkbox" class="form-check-input" name="language_types[]" value="1">HTML/CSS</label>
@@ -61,7 +61,8 @@
               <label><input type="checkbox" class="form-check-input" name="language_types[]" value="0">その他</label>
             </div>
           </div>
-          <input type="submit" class="btn btn-success" value="新規登録">
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#signup_modal">登録する</button>
+          <?php include VIEW_PATH . 'templates/dialog.php'; ?>
         </form>
         <a href="login.php">ログインページはこちら(登録済みの方)</a>
       </section>

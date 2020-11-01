@@ -42,7 +42,8 @@
 <?php } else { ?>
         <form method="post" action="following_user_delete.php">
           <input type="hidden" name="follower_id" value="<?php print $another_user['user_id']; ?>">
-          <button type="submit" class="btn btn-light"><i class="fas fa-heart following"></i> フォロー中</button>
+          <button type="button" class="btn btn-light" data-toggle="modal" data-target="#following_user_delete_modal"><i class="fas fa-heart following"></i> フォロー中</button>
+          <?php include VIEW_PATH . 'templates/dialog.php'; ?>
         </form>
 <?php } ?>
       </div>
@@ -75,7 +76,8 @@
           <a href="another_profile.php?user=<?php print $following['user_id']; ?>"><?php print $following['user_name']; ?></a>
           <form method="post" action="following_user_delete.php">
             <input type="hidden" name="follower_id" value="<?php print $following['user_id']; ?>">
-            <button type="submit" class="btn btn-light"><i class="fas fa-heart following"></i> フォロー中</button>
+            <button type="button" class="btn btn-light" data-toggle="modal" data-target="#following_user_delete_modal"><i class="fas fa-heart following"></i> フォロー中</button>
+            <?php include VIEW_PATH . 'templates/dialog.php'; ?>
           </form>
       <?php } ?>
         </section>
@@ -104,7 +106,8 @@
           <a href="another_profile.php?user=<?php print $follower['user_id']; ?>"><?php print $follower['user_name']; ?></a>
           <form method="post" action="following_user_delete.php">
             <input type="hidden" name="follower_id" value="<?php print $follower['user_id']; ?>">
-            <button type="submit" class="btn btn-light"><i class="fas fa-heart following"></i> フォロー中</button>
+            <button type="button" class="btn btn-light" data-toggle="modal" data-target="#following_user_delete_modal"><i class="fas fa-heart following"></i> フォロー中</button>
+            <?php include VIEW_PATH . 'templates/dialog.php'; ?>
           </form>
       <?php } ?>
         </section>
@@ -140,18 +143,20 @@
         <?php } else { ?>
                   <form method="post" action="following_user_delete.php">
                     <input type="hidden" name="follower_id" value="<?php print $another_user['user_id']; ?>">
-                    <button type="submit" class="btn btn-light"><i class="fas fa-heart following"></i> フォロー中</button>
+                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#following_user_delete_modal"><i class="fas fa-heart following"></i> フォロー中</button>
+                    <?php include VIEW_PATH . 'templates/dialog.php'; ?>
                   </form>
         <?php } ?>
         <?php if (is_favorite_post($db, $user, $own_post['post_id']) === false) { ?>
                   <form method="post" action="favorite_post_register.php">
                     <input type="hidden" name="post_id" value="<?php print $own_post['post_id']; ?>">
-                    <button type="submit" class="btn btn-warning"><i class="fas fa-thumbs-up"></i> お気に入り</button>
+                    <button type="submit" class="btn btn-warning"><i class="fas fa-thumbs-up"></i> お気に入り追加</button>
                   </form>
         <?php } else { ?>
                   <form method="post" action="favorite_post_delete.php">
                     <input type="hidden" name="post_id" value="<?php print $own_post['post_id']; ?>">
-                    <button type="submit" class="btn btn-light"><i class="fas fa-thumbs-up favorite_post"></i> お気に入り解除</button>
+                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#favorite_post_delete_modal"><i class="fas fa-thumbs-up favorite_post"></i> お気に入り解除</button>
+                    <?php include VIEW_PATH . 'templates/dialog.php'; ?>
                   </form>
         <?php } ?>
                 </div>
@@ -195,18 +200,20 @@
         <?php } else { ?>
                   <form method="post" action="following_user_delete.php">
                     <input type="hidden" name="follower_id" value="<?php print $favorite_post['user_id']; ?>">
-                    <button type="submit" class="btn btn-light"><i class="fas fa-heart following"></i> フォロー中</button>
+                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#following_user_delete_modal"><i class="fas fa-heart following"></i> フォロー中</button>
+                    <?php include VIEW_PATH . 'templates/dialog.php'; ?>
                   </form>
         <?php } ?>
         <?php if (is_favorite_post($db, $user, $favorite_post['post_id']) === false) { ?>
                   <form method="post" action="favorite_post_register.php">
                     <input type="hidden" name="post_id" value="<?php print $favorite_post['post_id']; ?>">
-                    <button type="submit" class="btn btn-warning"><i class="fas fa-thumbs-up"></i> お気に入り</button>
+                    <button type="submit" class="btn btn-warning"><i class="fas fa-thumbs-up"></i> お気に入り追加</button>
                   </form>
         <?php } else { ?>
                   <form method="post" action="favorite_post_delete.php">
                     <input type="hidden" name="post_id" value="<?php print $favorite_post['post_id']; ?>">
-                    <button type="submit" class="btn btn-light"><i class="fas fa-thumbs-up favorite_post"></i> お気に入り解除</button>
+                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#favorite_post_delete_modal"><i class="fas fa-thumbs-up favorite_post"></i> お気に入り解除</button>
+                    <?php include VIEW_PATH . 'templates/dialog.php'; ?>
                   </form>
         <?php } ?>
                 </div>
