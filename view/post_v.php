@@ -58,31 +58,32 @@
       </div>
       <?php include VIEW_PATH . 'templates/messages.php'; ?>
       <section>
-        <form method='post' enctype='multipart/form-data' action="post_pre.php">
-        <div class="form-group">
-          <label>タイトル画像[任意]:<input type="file" name="title_image" class="form-control-file"></label>
-        </div>
-        <div class="form-group">
-          <label>タイトル[必須]:<input type="text" name="title" class="form-control"></label>
-        </div>
-        <div id='fm' class="form-group">
-          <div>投稿内容 ( 文章[一箇所以上必須]、画像[任意] ):</div>
-          <textarea name="texts[]" class="form-control"></textarea>
-          <input type="file" name="images[]">
-        </div>
-        <div class="form-inline">
-          <label>記事のジャンル:
-            <select name="language_type">
-              <option value="">選択して下さい</option>
-              <option value="1">HTML/CSS</option>
-              <option value="2">JavaScript</option>
-              <option value="3">PHP</option>
-              <option value="4">MySQL</option>
-              <option value="0">その他</option>
-            </select>
-          </label>
-        </div>
+        <form method="post" enctype="multipart/form-data" action="post_pre.php">
+          <div class="form-group">
+            <label>タイトル画像[任意]:<input type="file" name="title_image" class="form-control-file"></label>
+          </div>
+          <div class="form-group">
+            <label>タイトル[必須]:<input type="text" name="title" class="form-control"></label>
+          </div>
+          <div id='fm' class="form-group">
+            <div>投稿内容 ( 文章[一箇所以上必須]、画像[任意] ):</div>
+            <textarea name="texts[]" class="form-control"></textarea>
+            <input type="file" name="images[]">
+          </div>
+          <div class="form-inline">
+            <label>記事のジャンル:
+              <select name="language_type">
+                <option value="">選択して下さい</option>
+                <option value="1">HTML/CSS</option>
+                <option value="2">JavaScript</option>
+                <option value="3">PHP</option>
+                <option value="4">MySQL</option>
+                <option value="0">その他</option>
+              </select>
+            </label>
+          </div>
           <button id='add' type="button" class="btn btn-secondary">フォーム追加</button>
+          <input type="hidden" name="token" value="<?php print $token; ?>">
           <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#post_pre_modal">プレビュー</button>
           <?php include VIEW_PATH . 'templates/dialog.php'; ?>
         </form>

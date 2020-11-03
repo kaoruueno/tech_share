@@ -3,7 +3,7 @@ require_once '../conf/const.php';
 require_once MODEL_PATH . 'functions_m.php';
 require_once MODEL_PATH . 'db_m.php';
 require_once MODEL_PATH . 'user_m.php';
-// header('X-FRAME-OPTIONS: DENY');
+header('X-FRAME-OPTIONS: DENY');
 
 session_start();
 
@@ -17,13 +17,16 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
   }
   redirect_to(LOGIN_URL);
 }
-// $token = get_post('token');
+
 $user_name = get_post('user_name');
 $password = get_post('password');
 
-// if (is_valid_csrf_token($token) === false) {
-//   redirect_to(LOGIN_URL);
-// }
+$token = get_post('token');
+
+if (is_valid_csrf_token($token) === false) {
+  redirect_to(LOGOUT_URL);
+}
+
 $db = get_db_connect();
 
 $user = login_as($db, $user_name, $password);

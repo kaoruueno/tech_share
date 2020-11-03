@@ -61,6 +61,7 @@
               <label><input type="checkbox" class="form-check-input" name="language_types[]" value="0">その他</label>
             </div>
           </div>
+          <input type="hidden" name="token" value="<?php print $token; ?>">
           <button type="button" class="btn btn-success" data-toggle="modal" data-target="#signup_modal">登録する</button>
           <?php include VIEW_PATH . 'templates/dialog.php'; ?>
         </form>

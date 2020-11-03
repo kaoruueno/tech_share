@@ -39,11 +39,13 @@
           <div class="form-group">
             <label>パスワード:<input type="password" class="form-control" name="password"></label>
           </div>
+          <input type="hidden" name="token" value="<?php print $token; ?>">
           <div><input type="submit" class="btn btn-success" value="ログイン"></div>
         </form>
 
         <form method="post" action="login_process.php" class="login_form">
           <input type="hidden" class="form-control" name="user_name" value="guest">
+          <input type="hidden" name="token" value="<?php print $token; ?>">
           <!-- <div><input type="submit" class="btn btn-success" value="ゲストとしてログイン"></div> -->
           <button type="button" class="btn btn-success" data-toggle="modal" data-target="#guest_login_modal">ゲストとしてログイン</button>
           <?php include VIEW_PATH . 'templates/dialog.php'; ?>

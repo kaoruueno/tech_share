@@ -57,6 +57,7 @@
           <a href="another_profile.php?user=<?php print $following['user_id']; ?>"><?php print $following['user_name']; ?></a>
           <form method="post" action="following_user_delete.php">
             <input type="hidden" name="follower_id" value="<?php print $following['user_id']; ?>">
+            <input type="hidden" name="token" value="<?php print $token; ?>">
             <button type="button" class="btn btn-light" data-toggle="modal" data-target="#following_user_delete_modal"><i class="fas fa-heart following"></i> フォロー中</button>
             <?php include VIEW_PATH . 'templates/dialog.php'; ?>
           </form>
@@ -78,11 +79,13 @@
       <?php if (is_following_user($db, $user, $follower['user_id']) === false) { ?>
           <form method="post" action="following_user_register.php">
             <input type="hidden" name="follower_id" value="<?php print $follower['user_id']; ?>">
+            <input type="hidden" name="token" value="<?php print $token; ?>">
             <button type="submit" class="btn btn-warning"><i class="fas fa-heart"></i> フォローする</button>
           </form>
       <?php } else { ?>
           <form method="post" action="following_user_delete.php">
             <input type="hidden" name="follower_id" value="<?php print $follower['user_id']; ?>">
+            <input type="hidden" name="token" value="<?php print $token; ?>">
             <button type="button" class="btn btn-light" data-toggle="modal" data-target="#following_user_delete_modal"><i class="fas fa-heart following"></i> フォロー中</button>
             <?php include VIEW_PATH . 'templates/dialog.php'; ?>
           </form>
@@ -109,6 +112,7 @@
                 <!-- <div class="privacy_button_area"> -->
                   <form class="delete_button_area" method="post" action="post_delete.php">
                     <input type="hidden" name="post_id" value="<?php print $own_post['post_id']; ?>">
+                    <input type="hidden" name="token" value="<?php print $token; ?>">
                     <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#post_delete_modal"><i class="far fa-trash-alt"></i> 投稿削除</button>
                     <?php include VIEW_PATH . 'templates/dialog.php'; ?>
                   </form>
@@ -144,6 +148,7 @@
       <?php if (is_admin($user) === true) { ?>
                 <form class="delete_button_area" method="post" action="post_delete.php">
                   <input type="hidden" name="post_id" value="<?php print $favorite_post['post_id']; ?>">
+                  <input type="hidden" name="token" value="<?php print $token; ?>">
                   <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#post_delete_modal"><i class="far fa-trash-alt"></i> 投稿削除</button>
                   <?php include VIEW_PATH . 'templates/dialog.php'; ?>
                 </form>
@@ -161,17 +166,20 @@
       <?php if (is_following_user($db, $user, $favorite_post['user_id']) === false) { ?>
                   <form method="post" action="following_user_register.php">
                     <input type="hidden" name="follower_id" value="<?php print $favorite_post['user_id']; ?>">
+                    <input type="hidden" name="token" value="<?php print $token; ?>">
                     <button type="submit" class="btn btn-warning"><i class="fas fa-heart"></i> フォローする</button>
                   </form>
       <?php } else { ?>
                   <form method="post" action="following_user_delete.php">
                     <input type="hidden" name="follower_id" value="<?php print $favorite_post['user_id']; ?>">
+                    <input type="hidden" name="token" value="<?php print $token; ?>">
                     <button type="button" class="btn btn-light" data-toggle="modal" data-target="#following_user_delete_modal"><i class="fas fa-heart following"></i> フォロー中</button>
                     <?php include VIEW_PATH . 'templates/dialog.php'; ?>
                   </form>
       <?php } ?>
                   <form method="post" action="favorite_post_delete.php">
                     <input type="hidden" name="post_id" value="<?php print $favorite_post['post_id']; ?>">
+                    <input type="hidden" name="token" value="<?php print $token; ?>">
                     <button type="button" class="btn btn-light" data-toggle="modal" data-target="#favorite_post_delete_modal"><i class="fas fa-thumbs-up favorite_post"></i> お気に入り解除</button>
                     <?php include VIEW_PATH . 'templates/dialog.php'; ?>
                   </form>
@@ -196,6 +204,7 @@
                   <label><input type="checkbox" class="form-check-input" name="language_types[]" value="<?php print $key; ?>"<?php print $response_link[$key]; ?>><?php print $value; ?></label>
                 </div>
   <?php } ?>
+                <input type="hidden" name="token" value="<?php print $token; ?>">
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#favorite_languages_change_modal">変更する</button>
                 <?php include VIEW_PATH . 'templates/dialog.php'; ?>
               </div>

@@ -59,6 +59,7 @@
             </select>
           </label>
         </div>
+        <input type="hidden" name="token" value="<?php print $token; ?>">
         <div class="display_button">
           <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#post_session_delete_modal">投稿キャンセル</button>
           <?php include VIEW_PATH . 'templates/dialog.php'; ?>

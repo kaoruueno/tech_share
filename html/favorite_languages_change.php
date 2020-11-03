@@ -4,7 +4,7 @@ require_once MODEL_PATH . 'functions_m.php';
 require_once MODEL_PATH . 'db_m.php';
 require_once MODEL_PATH . 'user_m.php';
 require_once MODEL_PATH . 'profile_m.php';
-// header('X-FRAME-OPTIONS: DENY');
+header('X-FRAME-OPTIONS: DENY');
 
 session_start();
 
@@ -23,9 +23,13 @@ if ($user === '') {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $language_types = get_post_checkbox('language_types');
-  // if (is_valid_csrf_token($token) === false) {
-  //   redirect_to(SIGNUP_URL);
-  // }
+
+  $token = get_post('token');
+
+  if (is_valid_csrf_token($token) === false) {
+    redirect_to(LOGOUT_URL);
+  }
+
   if (is_valid_language_types($language_types) === false) {
     redirect_to(PREVIOUS_URL);
   }
@@ -39,6 +43,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
   set_message('興味があるジャンルを更新しました');
 }
-// $token = get_csrf_token();
 redirect_to(PREVIOUS_URL);
 ?>

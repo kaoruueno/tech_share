@@ -4,7 +4,7 @@ require_once MODEL_PATH . 'functions_m.php';
 require_once MODEL_PATH . 'db_m.php';
 require_once MODEL_PATH . 'user_m.php';
 require_once MODEL_PATH . 'article_m.php';
-// header('X-FRAME-OPTIONS: DENY');
+header('X-FRAME-OPTIONS: DENY');
 
 session_start();
 
@@ -42,6 +42,6 @@ $display_keyword = entity_array(convert_display_search_keyword_array($get_search
 if (has_post_session() === true) {
   set_post_warning('記事の投稿が中断されました。右のボタンから投稿作業に戻れます。' . "<br>" . 'ブラウザを閉じると、中断された入力データは破棄されます。');
 }
-// $token = get_csrf_token();
+$token = get_csrf_token();
 include_once VIEW_PATH . 'index_v.php';
 ?>
