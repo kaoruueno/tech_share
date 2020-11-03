@@ -166,16 +166,17 @@ function change_favorite_languages_transaction($db, $user, $language_types) {
   if ($change_favorite_languages === []) {
     return '';
   }
+  $is_false = [];
   $db->beginTransaction();
   foreach ($change_favorite_languages as $key => $value) {
     if ($value === 'delete') {
-      delete_favorite_language($db, $user['user_id'], $key);
+      $is_false[] = delete_favorite_language($db, $user['user_id'], $key);
     }
     if ($value === 'insert') {
-      insert_favorite_language($db, $user['user_id'], $key);
+      $is_false[] = insert_favorite_language($db, $user['user_id'], $key);
     }
   }
-  if (has_error() === false) {
+  if (has_false($is_false) === false) {
     $db->commit();
     return true;
   } else {
