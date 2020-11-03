@@ -1,7 +1,7 @@
 <?php
 require_once '../conf/const.php';
 require_once MODEL_PATH . 'functions_m.php';
-// header('X-FRAME-OPTIONS: DENY');
+header('X-FRAME-OPTIONS: DENY');
 
 session_start();
 $_SESSION = array();

@@ -4,6 +4,7 @@ require_once MODEL_PATH . 'functions_m.php';
 require_once MODEL_PATH . 'db_m.php';
 require_once MODEL_PATH . 'user_m.php';
 require_once MODEL_PATH . 'post_m.php';
+header('X-FRAME-OPTIONS: DENY');
 
 session_start();
 

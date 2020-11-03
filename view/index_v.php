@@ -93,11 +93,13 @@
         <?php if (is_following_user($db, $user, $value['user_id']) === false) { ?>
               <form method="post" action="following_user_register.php">
                 <input type="hidden" name="follower_id" value="<?php print $value['user_id']; ?>">
+                <input type="hidden" name="token" value="<?php print $token; ?>">
                 <button type="submit" class="btn btn-warning"><i class="fas fa-heart"></i> フォローする</button>
               </form>
         <?php } else { ?>
               <form method="post" action="following_user_delete.php">
                 <input type="hidden" name="follower_id" value="<?php print $value['user_id']; ?>">
+                <input type="hidden" name="token" value="<?php print $token; ?>">
                 <button type="button" class="btn btn-light" data-toggle="modal" data-target="#following_user_delete_modal"><i class="fas fa-heart following"></i> フォロー中</button>
                 <?php include VIEW_PATH . 'templates/dialog.php'; ?>
               </form>
@@ -105,11 +107,13 @@
         <?php if (is_favorite_post($db, $user, $value['post_id']) === false) { ?>
               <form method="post" action="favorite_post_register.php">
                 <input type="hidden" name="post_id" value="<?php print $value['post_id']; ?>">
+                <input type="hidden" name="token" value="<?php print $token; ?>">
                 <button type="submit" class="btn btn-warning"><i class="fas fa-thumbs-up"></i> お気に入り追加</button>
               </form>
         <?php } else { ?>
               <form method="post" action="favorite_post_delete.php">
                 <input type="hidden" name="post_id" value="<?php print $value['post_id']; ?>">
+                <input type="hidden" name="token" value="<?php print $token; ?>">
                 <button type="button" class="btn btn-light" data-toggle="modal" data-target="#favorite_post_delete_modal"><i class="fas fa-thumbs-up favorite_post"></i> お気に入り解除</button>
                 <?php include VIEW_PATH . 'templates/dialog.php'; ?>
               </form>

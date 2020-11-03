@@ -4,6 +4,7 @@ require_once MODEL_PATH . 'functions_m.php';
 require_once MODEL_PATH . 'db_m.php';
 require_once MODEL_PATH . 'user_m.php';
 require_once MODEL_PATH . 'post_m.php';
+header('X-FRAME-OPTIONS: DENY');
 
 session_start();
 
@@ -27,6 +28,12 @@ $title_img_file = get_session('title_img_file');
 $body = get_session('body');
 $img_file = get_session('img_file');
 $language_type = get_post('language_type');
+
+$token = get_post('token');
+
+if (is_valid_csrf_token($token) === false) {
+  redirect_to(LOGOUT_URL);
+}
 
 if (is_valid_post_register_data_post($title, $body, $language_type) === false) {
   redirect_to(POST_URL);

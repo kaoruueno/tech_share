@@ -4,7 +4,7 @@ require_once MODEL_PATH . 'functions_m.php';
 require_once MODEL_PATH . 'db_m.php';
 require_once MODEL_PATH . 'user_m.php';
 require_once MODEL_PATH . 'post_m.php';
-// header('X-FRAME-OPTIONS: DENY');
+header('X-FRAME-OPTIONS: DENY');
 
 session_start();
 
@@ -23,9 +23,13 @@ if ($user === '') {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $post_id = get_post('post_id');
-  // if (is_valid_csrf_token($token) === false) {
-  //   redirect_to(SIGNUP_URL);
-  // }
+
+  $token = get_post('token');
+
+  if (is_valid_csrf_token($token) === false) {
+    redirect_to(LOGOUT_URL);
+  }
+
   if (is_valid_post_id_for_post_delete($db, $user, $post_id) === false) {
     redirect_to(PREVIOUS_URL);
   }
@@ -35,6 +39,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
   set_message('指定した投稿記事を削除しました');
 }
-// $token = get_csrf_token();
 redirect_to(PREVIOUS_URL);
 ?>

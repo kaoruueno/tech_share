@@ -386,4 +386,19 @@ function get_display_count($current_page, $all_page, $all_count) {
   }
   return $display_count;
 }
+
+// CSRF対策
+// トークンの生成
+function get_csrf_token() {
+  $token = get_random_string(30);
+  set_session('token', $token);
+  return $token;
+}
+// トークンの照合
+function is_valid_csrf_token($token) {
+  if ($token === '') {
+    return false;
+  }
+  return $token === get_session('token');
+}
 ?>

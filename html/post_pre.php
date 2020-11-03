@@ -4,6 +4,7 @@ require_once MODEL_PATH . 'functions_m.php';
 require_once MODEL_PATH . 'db_m.php';
 require_once MODEL_PATH . 'user_m.php';
 require_once MODEL_PATH . 'post_m.php';
+header('X-FRAME-OPTIONS: DENY');
 
 session_start();
 
@@ -24,6 +25,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$text = get_post_array('texts');
   $img = get_file_array('images');
   $language_type = get_post('language_type');
+
+  $token = get_post('token');
+
+  if (is_valid_csrf_token($token) === false) {
+    redirect_to(LOGOUT_URL);
+  }
+
   // $textのバリデーション 失敗した場合、set_error、redirect_to
   $title_img_file = get_title_img_file_name_post($title_img);
   $img_file = get_img_file_name_post($img);
@@ -96,5 +104,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $pre_title_img_file = get_pre_title_img_post($title_img_file);
   $pre_body = get_pre_body_post($body);
 }
+$token = get_csrf_token();
 include_once VIEW_PATH . 'post_pre_v.php';
 ?>
