@@ -172,7 +172,6 @@ function is_valid_post_register_data_post($title, $body, $language_type) {
     return false;
   }
   if (is_valid_language_type_post($language_type) === '') {
-    set_error('記事のジャンルを選択して下さい');
     return '';
   }
   return true;
@@ -229,10 +228,11 @@ function is_valid_post_id_for_post_delete($db, $user, $post_id) {
 }
 
 function delete_post_transaction($db, $post_id) {
+  $is_false = [];
   $db->beginTransaction();
-  delete_post_from_favorite_posts_table($db, $post_id);
-  delete_post_from_posts_table($db, $post_id);
-  if (has_error() === false) {
+  $is_false[] = delete_post_from_favorite_posts_table($db, $post_id);
+  $is_false[] = delete_post_from_posts_table($db, $post_id);
+  if (has_false($is_false) === false) {
     $db->commit();
     return true;
   } else {

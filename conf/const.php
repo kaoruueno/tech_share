@@ -48,6 +48,11 @@ define('USER_NAME_LENGTH_MAX', 20);
 define('USER_PASSWORD_LENGTH_MIN', 6);
 define('USER_PASSWORD_LENGTH_MAX', 100);
 
+define('GUEST_USER', array(
+  'user_name' => 'guest',
+  'password' => 'guest'
+));
+
 define('USER_TYPE_ADMIN', 1);
 define('USER_TYPE_NORMAL', 2);
 

@@ -31,6 +31,7 @@ $language_type = get_post('language_type');
 if (is_valid_post_register_data_post($title, $body, $language_type) === false) {
   redirect_to(POST_URL);
 } else if (is_valid_post_register_data_post($title, $body, $language_type) === '') {
+  set_error('記事のジャンルを選択して下さい');
   redirect_to(POST_PRE_URL);
 }
 

@@ -128,6 +128,15 @@ function get_errors(){
   return $errors;
 }
 
+function has_false($array) {
+  foreach ($array as $value) {
+    if ($value === false) {
+      return true;
+    }
+  }
+  return false;
+}
+
 function has_error(){
   return isset($_SESSION['__errors']) && count($_SESSION['__errors']) !== 0;
 }

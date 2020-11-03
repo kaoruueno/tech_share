@@ -48,7 +48,8 @@ function get_user_by_name($db, $user_name){
   return fetch_query($db, $sql, $params);
 }
 
-function login_as($db, $user_name, $password){
+function login_as($db, $user_name, $password) {
+  $password = get_password_for_guest($user_name, $password);
   $user = get_user_by_name($db, $user_name);
   // ログイン情報の照合(入力PWとハッシュ化PWの照合)
   if($user === false || password_verify($password, $user['password']) === false){
@@ -56,6 +57,13 @@ function login_as($db, $user_name, $password){
   }
   set_session('user_id', $user['user_id']);
   return $user;
+}
+
+function get_password_for_guest($user_name, $password) {
+  if ($user_name === GUEST_USER['user_name']) {
+    $password = GUEST_USER['password'];
+  }
+  return $password;
 }
 
 function get_login_user($db){
@@ -158,13 +166,14 @@ function is_valid_language_types($language_types) {
 }
 
 function signup_transaction($db, $user_name, $password, $language_types) {
+  $is_false = [];
   $db->beginTransaction();
-  insert_user($db, $user_name, $password);
+  $is_false[] = insert_user($db, $user_name, $password);
   $user_id = $db->lastInsertId('user_id');
   foreach ($language_types as $value) {
-    insert_favorite_language($db, $user_id, $value);
+    $is_false[] = insert_favorite_language($db, $user_id, $value);
   }
-  if (has_error() === false) {
+  if (has_false($is_false) === false) {
     $db->commit();
     return true;
   } else {
