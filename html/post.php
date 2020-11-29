@@ -18,8 +18,9 @@ if ($user === '') {
 }
 
 if (has_post_session() === true) {
-  set_post_warning('記事の投稿が中断されました。右のボタンから投稿作業に戻れます。' . "<br>" . 'ブラウザを閉じると、中断された入力データは破棄されます。');
+  set_post_warning('記事の投稿が中断されました。投稿作業に戻れます。' . "<br>" . 'ブラウザを閉じると、中断された入力データは破棄されます。');
 }
+
 $token = get_csrf_token();
 include_once VIEW_PATH . 'post_v.php';
 ?>

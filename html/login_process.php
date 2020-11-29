@@ -12,7 +12,7 @@ if (is_logined() === true) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-  if (PREVIOUS_URL !== null) {
+  if (has_valid_previous_url() === true) {
     redirect_to(PREVIOUS_URL);
   }
   redirect_to(LOGIN_URL);
@@ -20,7 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $user_name = get_post('user_name');
 $password = get_post('password');
-
 $token = get_post('token');
 
 if (is_valid_csrf_token($token) === false) {
@@ -36,8 +35,5 @@ if ($user === false) {
 }
 
 set_message('ログインしました。');
-// if ($user['user_type'] === USER_TYPE_ADMIN) {
-//   redirect_to(ADMIN_URL);
-// }
 redirect_to(INDEX_URL);
 ?>

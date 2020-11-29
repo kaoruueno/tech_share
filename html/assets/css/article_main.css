@@ -1,0 +1,43 @@
+/* 300px~807px d = 507px */
+article > :not(:last-child) {
+  margin-bottom: 8px;
+}
+.ctr > article h3 {
+  font-size: clamp(22.75px, calc(22.75px + ((1vw - 3.4px) * 1.0355)), 28px);
+}
+.ctr > article *:not(h3):not(.article_body) {
+  font-size: clamp(13px, calc(13px + ((1vw - 3.4px) * 0.5917)), 16px);
+}
+.ctr > article *[class*="btn"] {
+  padding: clamp(4.875px, calc(4.875px + ((1vw - 3.4px) * 0.2219)), 6px) clamp(9.75px, calc(9.75px + ((1vw - 3.4px) * 0.4438)), 12px);
+}
+article img {
+  display: block;
+  width: clamp(268px, 100%, 568px);
+  margin: 0 auto 8px auto;
+}
+article > img {
+  max-height: clamp(187.5px, calc(187.5px + ((1vw - 3.4px) * 41.3215)), 397px);
+}
+.post_details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.delete_button_area {
+  display: flex;
+  justify-content: flex-end;
+}
+.favorite_button_area {
+  display: flex;
+  justify-content: space-between;
+}
+
+h3 + *, .article_body {
+  padding-top: 8px;
+  border-top: solid 1px #cccccc;
+}
+.article_body {
+  font-size: clamp(14px, calc(16px + ((1vw - 3.4px) * 0.789)), 18px);
+  line-height: 1.75;
+}

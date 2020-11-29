@@ -1,26 +1,53 @@
-.container>div:first-of-type {
-  text-align: center;
+/* 300px~807px d = 507px */
+.ctr>div *:not(span) {
+  font-size: clamp(12px, calc(12px + ((1vw - 3.4px) * 0.789)), 16px);
 }
-.container>div:first-of-type span {
-  font-size: 1.5rem;
+.ctr>div span {
+  font-size: clamp(14.5px, calc(14.5px + ((1vw - 3.4px) * 1.8738)), 24px);
   font-weight: bold;
 }
-.follow_count {
+.ctr>div *[class*="btn"] {
+  padding: clamp(3.5px, calc(3.5px + ((1vw - 3.4px) * 0.4931)), 6px) clamp(3.5px, calc(3.5px + ((1vw - 3.4px) * 1.6765)), 12px);
+}
+.ctr>div:first-of-type {
+  text-align: center;
+}
+.ctr>div {
+  margin-bottom: 8px;
+}
+.follow_another {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.follow_another>div {
+  padding-right: clamp(6px, calc(6px + ((1vw - 3.4px) * 3.5503)), 24px);
+}
+.follow_another>form {
+  padding-left: clamp(6px, calc(6px + ((1vw - 3.4px) * 3.5503)), 24px);
+}
+.follow_count, .profile_bar {
   display: flex;
   justify-content: space-evenly;
-  margin-top: 0.75rem;
 }
 .profile_bar {
   border-top: solid 1px #cccccc;
   border-bottom: solid 1px #cccccc;
   padding: 2px 0px;
-  margin: 0.75rem 0px;
-  display: flex;
-  justify-content: space-evenly;
 }
-article {
-  margin-bottom: 0.75rem;
+
+
+/* 300px~415px d = 115px */
+h4 {
+  font-size: clamp(21px, calc(21px + ((1vw - 3.4px) * 2.6087)), 24px);
 }
+article *:not(h4), article *[class*="btn"], article .fas {
+  font-size: clamp(14px, calc(14px + ((1vw - 3.4px) * 1.7391)), 16px);
+}
+article *[class*="btn"] {
+  padding: clamp(5.25px, calc(5.25px + ((1vw - 3.4px) * 0.6522)), 6px) clamp(10.5px, calc(10.5px + ((1vw - 3.4px) * 1.3043)), 12px);
+}
+
 article>h4, article>p {
   text-align: center;
 }
@@ -30,47 +57,40 @@ article>h4, article>p {
   justify-content: center;
 }
 
+.follow_list *:not(h4), .follow_list *[class*="btn"], .follow_list .fas {
+  font-size: clamp(13px, calc(13px + ((1vw - 3.4px) * 2.6087)), 16px);
+}
+.follow_list *[class*="btn"] {
+  padding: clamp(4.875px, calc(4.875px + ((1vw - 3.4px) * 0.9783)), 6px) clamp(9.75px, calc(9.75px + ((1vw - 3.4px) * 1.9565)), 12px);
+}
 .follow_list section:hover {
   background-color: rgba(40,167,69,0.1);
-}
-.follow_list a {
-  text-decoration: none;
-  color: #000000;
 }
 .follow_list>section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: clamp(400px, 50vw, 900px);
-  height: clamp(42px, 50px, 100px);
-  margin: 0.25rem auto 0 auto;
+  width: clamp(268px, calc(268px + ((1vw - 3.4px) * 288.6957)), 600px);
   padding-right: 5px;
-  border-collapse: collapse;
   border: solid 1px #cccccc;
+  margin: 0 auto;
 }
-.follow_list>section:first-of-type {
-  margin-top: 0;
+.follow_list>section:not(:first-of-type) {
+  margin: 4px auto 0 auto;
 }
 .follow_list>section>a {
   display: block;
   flex: 1;
   height: 100%;
   padding: 12px 5px;
+  text-decoration: none;
+  color: #000000;
 }
 .follow_list>section>form {
-  width: 143px;
+  width: clamp(116.5px, calc(116.5px + ((1vw - 3.4px) * 23.0435)), 143px);
 }
 .follow_list>section>form>button {
   width: 100%;
-}
-
-.follow_another {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.follow_another>div {
-  margin-right: clamp(0px, 4vw, 3rem);
 }
 .unchangeable_checkbox {
   pointer-events: none;

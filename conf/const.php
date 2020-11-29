@@ -1,7 +1,7 @@
 <?php
-
 define('VIEW_PATH', $_SERVER['DOCUMENT_ROOT'] . '/../view/');
 define('MODEL_PATH', $_SERVER['DOCUMENT_ROOT'] . '/../model/');
+define('DIALOG_PATH', VIEW_PATH . 'templates/dialog/');
 
 define('IMAGE_PATH', '/assets/images/');
 define('PRE_IMAGE_PATH', '/assets/pre_images/');
@@ -28,6 +28,10 @@ define('LOGOUT_URL', '/logout.php');
 define('SIGNUP_URL', '/signup.php');
 define('POST_URL', '/post.php');
 define('POST_PRE_URL', '/post_pre.php');
+define('ARTICLE_URL', '/article.php');
+define('MY_PROFILE_URL', '/my_profile.php');
+define('ANOTHER_PROFILE_URL', '/another_profile.php');
+define('ADMIN_POST_URL', '/admin_post.php');
 
 define('REGEX_ALPHANUMERIC', '/^[0-9a-zA-Z]+$/');
 define('REGEX_POSITIVE_INT', '/^([1-9][0-9]*|0)$/');

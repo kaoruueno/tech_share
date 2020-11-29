@@ -1,5 +1,4 @@
 <?php
-
 function get_db_connect() {
   // MySQL用のDSN文字列
   $dsn = 'mysql:dbname='. DB_NAME .';host='. DB_HOST .';charset='.DB_CHARSET;
@@ -11,12 +10,12 @@ function get_db_connect() {
     $dbh->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
     $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
   } catch (PDOException $e) {
-    exit('接続できませんでした。理由：'.$e->getMessage() );
+    exit('接続できませんでした。'.$e->getMessage() );
   }
   return $dbh;
 }
 
-function fetch_query($db, $sql, $params = array()) {
+function fetch_query($db, $sql, $params = []) {
   try {
     $statement = $db->prepare($sql);
     $statement->execute($params);
@@ -32,7 +31,7 @@ function fetch_query($db, $sql, $params = array()) {
   return false;
 }
 
-function fetch_all_query($db, $sql, $params = array()) {
+function fetch_all_query($db, $sql, $params = []) {
   try {
     $statement = $db->prepare($sql);
     $statement->execute($params);
@@ -48,41 +47,13 @@ function fetch_all_query($db, $sql, $params = array()) {
   return false;
 }
 
-function execute_query($db, $sql, $params = array()) {
+function execute_query($db, $sql, $params = []) {
   try {
     $statement = $db->prepare($sql);
     return $statement->execute($params);
   } catch (PDOException $e) {
-    // set_error('更新に失敗しました。理由：'.$e->getMessage());
+    // set_error('更新に失敗しました。');
   }
   return false;
-}
-
-
-/**
-* 1次元配列の文字列型の値のみをHTMLエンティティに変換する
-*/
-function entity_array($array) {
-  foreach ($array as $key => $value) {
-    if (is_string($value) === TRUE) {
-      $array[$key] = h($value);
-    }
-  }
-  return $array;
-}
-
-/**
-* 2次元配列の文字列型の値のみをHTMLエンティティに変換する
-*/
-function entity_double_array($double_array) {
-  foreach ($double_array as $key => $value) {
-    foreach ($value as $keys => $values) {
-      if (is_string($values) === TRUE) {
-        $value[$keys] = h($values);
-      }
-    }
-    $double_array[$key] = $value;
-  }
-  return $double_array;
 }
 ?>

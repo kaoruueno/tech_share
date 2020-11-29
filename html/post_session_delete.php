@@ -15,12 +15,15 @@ if ($user === false) {
   redirect_to(LOGOUT_URL);
 }
 if ($user === '') {
-  if (PREVIOUS_URL !== null) {
+  if (has_valid_previous_url() === true) {
     redirect_to(PREVIOUS_URL);
   }
   redirect_to(POST_URL);
 }
 
 delete_post_data_session();
-redirect_to(PREVIOUS_URL);
+if (has_valid_previous_url() === true) {
+  redirect_to(PREVIOUS_URL);
+}
+redirect_to(POST_URL);
 ?>
