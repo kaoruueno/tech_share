@@ -49,7 +49,6 @@ function is_valid_title_post($title) {
   if (trim_only_space_str($title) === '') {
     set_error('タイトルを入力して下さい');
     return false;
-    // redirect_to(POST_URL);
   }
   $title = trim_both_ends_space($title);
   if (mb_strlen($title) > 80) {
@@ -143,12 +142,12 @@ function save_image_array_post($img, $img_file){
 
 
 function get_pre_title_post($title) {
-  return '<h5>タイトル:</h5>'."\n".'<h3>' . h($title) . '</h3>'."\n";
+  return '<h4>タイトル:</h4>'."\n".'<h3>' . h($title) . '</h3>'."\n";
 }
 
 function get_pre_title_img_post($title_img_file) {
   if ($title_img_file !== '') {
-    return '<h5>タイトル画像:</h5>'."\n".'<div><img src="'. PRE_TITLE_IMAGE_PATH . h($title_img_file) . '"></div>'."\n";
+    return '<h4>タイトル画像:</h4>'."\n".'<img class="title_img" src="'. PRE_TITLE_IMAGE_PATH . h($title_img_file) . '">'."\n";
   }
   return $pre_title_img_file = '';
 }
@@ -156,11 +155,7 @@ function get_pre_title_img_post($title_img_file) {
 function get_pre_body_post($body) {
   // プレビューで表示する$bodyをエスケープ
   // $_SESSION['body']の　[画像ファイル名.拡張子]　の箇所を下の形の変換する
-  // '<div><img src="'. PRE_IMAGE_PATH . 画像ファイル名.拡張子 . '"></div>'
-
-
-  // $replacement = '<div><img src="'. PRE_IMAGE_PATH . '$1$2"></div>'."\n";
-  return '<h5>投稿内容:</h5>' . "\n" . preg_replace(REGEX_IMAGE, '<div><img src="'. PRE_IMAGE_PATH . '$1$2"></div>', h($body));
+  return '<h4>投稿内容:</h4>' . "\n" . preg_replace(REGEX_IMAGE, '<img src="'. PRE_IMAGE_PATH . '$1$2">', h($body));
 }
 
 function is_valid_post_register_data_post($title, $body, $language_type) {
@@ -254,81 +249,4 @@ function delete_post_from_posts_table($db, $post_id) {
 
   return execute_query($db, $sql, $params);
 }
-
-
-// function change_favorite_languages_transaction($db, $user, $language_types) {
-//   $change_favorite_languages = get_favorite_languages_to_operate($db, $user, $language_types);
-//   if ($change_favorite_languages === []) {
-//     return '';
-//   }
-//   $db->beginTransaction();
-//   foreach ($change_favorite_languages as $key => $value) {
-//     if ($value === 'delete') {
-//       delete_favorite_language($db, $user['user_id'], $key);
-//     }
-//     if ($value === 'insert') {
-//       insert_favorite_language($db, $user['user_id'], $key);
-//     }
-//   }
-//   if (has_error() === false) {
-//     $db->commit();
-//     return true;
-//   } else {
-//     $db->rollback();
-//     return false; 
-//   }
-// }
-
-// function signup_transaction($db, $user_name, $password, $language_types) {
-//   $db->beginTransaction();
-//   insert_user($db, $user_name, $password);
-//   $user_id = $db->lastInsertId('user_id');
-//   foreach ($language_types as $value) {
-//     insert_favorite_language($db, $user_id, $value);
-//   }
-//   if (has_error() === false) {
-//     $db->commit();
-//     return true;
-//   } else {
-//     $db->rollback();
-//     return false; 
-//   }
-// }
-
-// // 仮
-// function get_post_data_trim_space($key) {
-//   $str = '';
-//   if (isset($_POST[$key]) === TRUE) {
-//     $str = $_POST[$key];
-//   }
-//   return preg_replace('/^[\s　]*(.*?)[\s　]*$/u', '$1', $str);
-// }
-
-// /**
-// * POSTデータから「0以上の整数のテキスト」データのバリデーションをする
-// */
-// function validation_post_positive_int_data_admin($pattern_positive_int, $subject_int, $japanese_int) {
-    
-//   global $err_msg;
-//   if ($subject_int === '') {
-//     return false;
-//   } else if (preg_match($pattern_positive_int, $subject_int) !== 1){
-//       $err_msg[] = $japanese_int . 'は0以上の整数(半角数字)で入力して下さい';
-//   } else if (mb_strlen ($subject_int, "UTF-8") > 10){
-//       $err_msg[] = $japanese_int . 'は10桁以内で入力して下さい';
-//   }
-// }
-// set_error('ファイル形式が不正です。');
-// /**
-// * POSTデータから「セレクトボックス」データのバリデーションをする
-// */
-// function validation_post_select_box_admin($pattern_selection, $subject_selection, $msg) {
-  
-//   global $err_msg;
-//   if ($subject_selection === '') {
-//       $err_msg[] = $msg;
-//   } else if (preg_match($pattern_selection, $subject_selection) !== 1){
-//       $err_msg[] = '処理が不正です';
-//   }
-// }
 ?>

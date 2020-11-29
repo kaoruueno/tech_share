@@ -1,5 +1,5 @@
-<div class="pagination_area">
 <?php if ($pagination['all_articles_count'] > 0) { ?>
+<div class="pagination_area">
   <?php if ($pagination['display_count']['min'] < $pagination['display_count']['max']) { ?>
   <div><?php print $pagination['all_articles_count']; ?>件中 <?php print $pagination['display_count']['min']; ?> - <?php print $pagination['display_count']['max']; ?>件目の記事</div>
   <?php } else {?>
@@ -32,8 +32,5 @@
       <a href="<?php print $pagination['url_param'] . $pagination['all_page']; ?>">最後へ</a>
   <?php } ?>
   </div>
-<?php } else { ?>
-  <div>0件の記事</div>
-<?php } ?>
-
 </div>
+<?php } ?>

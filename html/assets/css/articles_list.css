@@ -1,0 +1,124 @@
+/* 300px~807px d = 507px */
+.search_form * {
+  font-size: clamp(12px, calc(12px + ((1vw - 3.4px) * 0.789)), 16px);
+}
+.search_form label:first-of-type {
+  flex-basis: clamp(62px, calc(62px + ((1vw - 3.4px) * 5.5227)), 90px);
+}
+.search_form label:nth-of-type(2) {
+  flex-basis: clamp(87px, calc(87px + ((1vw - 3.4px) * 9.8619)), 137px);
+}
+.search_form label:last-of-type {
+  flex-basis: clamp(118px, calc(118px + ((1vw - 3.4px) * 25.641)), 248px);
+}
+.search_form>div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.search_form>div:last-of-type {
+  flex-direction: column-reverse;
+}
+.search_form>div:last-of-type>div:last-of-type {
+  margin-bottom: 8px;
+}
+.search_form *[class*="btn"] {
+  padding: clamp(4.5px, calc(4.5px + ((1vw - 3.4px) * 0.2959)), 6px) clamp(9px, calc(9px + ((1vw - 3.4px) * 0.5917)), 12px);
+}
+.submit_area>*:first-child:not(:last-child) {
+  margin-right: clamp(16px, calc(16px + ((1vw - 3.4px) * 3.1558)), 32px);
+}
+.submit_area>*:last-child:not(:first-child) {
+  margin-left: clamp(16px, calc(16px + ((1vw - 3.4px) * 3.1558)), 32px);
+}
+
+.post {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.post > p {
+  font-size: clamp(14px, calc(14px + ((1vw - 3.4px) * 0.789)), 18px);
+  margin-top: 12px;
+}
+.post>section {
+  margin-top: 12px;
+}
+.post>section>div {
+  position: relative;
+  border: solid 1px #cccccc;
+  width: clamp(268px, calc(268px + ((1vw - 3.4px) * 100)), 450px);
+  padding: 8px;
+}
+.post>section>div:hover {
+  background-color: rgba(40,167,69,0.1);
+}
+.post>section>div>a:not(.link_whole_parent), .favorite_button_area button, .delete_button_area button {
+  position: relative;
+  z-index: 2;
+}
+.delete_button_area {
+  display: flex;
+  justify-content: flex-end;
+}
+.favorite_button_area {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.post_details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.post>section>div>*:not(h4):not(.link_whole_parent):not(:last-child) {
+  margin-bottom: 8px;
+}
+/* 300px~482px d = 182px */
+.post>section img {
+  width: 100%;
+  max-height: clamp(210px, calc(210px + ((1vw - 3.4px) * 49.4505)), 300px);
+}
+
+/* 300px~415px d = 115px */
+.post>section>div h4 {
+  font-size: clamp(19.5px, calc(19.5px + ((1vw - 3.4px) * 3.913)), 24px);
+}
+.post>section>div *:not(h4) {
+  font-size: clamp(13px, calc(13px + ((1vw - 3.4px) * 2.6087)), 16px);
+}
+.post>section>div *[class*="btn"] {
+  padding: clamp(4.875px, calc(4.875px + ((1vw - 3.4px) * 0.9783)), 6px) clamp(9.75px, calc(9.75px + ((1vw - 3.4px) * 1.9565)), 12px);
+}
+
+/* 808px~937px d = 129px */
+@media (min-width: calc(808px + 20px)) {
+  .post>section:nth-of-type(odd):not(:last-of-type) {
+    padding-right: 8px;
+  }
+  .post>section:nth-of-type(even) {
+    padding-left: 8px;
+  }
+  .post>section>div {
+    width: clamp(380px, calc(380px + ((1vw - 8.28px) * 50)), 450px);;
+  }
+  .search_form>div:last-of-type {
+    flex-direction: row;
+  }
+  .search_form>div:last-of-type>div:last-of-type {
+    margin-bottom: 0px;
+  }
+  .submit_area>*:first-child:not(:last-child) {
+    margin-right: 0;
+  }
+  .submit_area>*:last-child:not(:first-child) {
+    margin-left: 0;
+  }
+}
+/* 938px~1077px d = 139px */
+@media (min-width: calc(938px + 20px)) {
+  .post>section>div {
+    width: clamp(380px, calc(380px + ((1vw - 9.58px) * 50)), 450px);;
+  }
+}

@@ -12,16 +12,16 @@ if (is_logined() === true) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-  if (PREVIOUS_URL !== null) {
+  if (has_valid_previous_url() === true) {
     redirect_to(PREVIOUS_URL);
   }
   redirect_to(SIGNUP_URL);
 }
+
 $user_name = get_post('user_name');
 $password = get_post('password');
 $password_confirmation = get_post('password_confirmation');
 $language_types = get_post_checkbox('language_types');
-
 $token = get_post('token');
 
 if (is_valid_csrf_token($token) === false) {

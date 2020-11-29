@@ -1,33 +1,16 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <?php include VIEW_PATH . 'templates/responsive.php'; ?>
+  <?php include VIEW_PATH . 'templates/design.php'; ?>
   <title>新規登録ページ</title>
   <link rel="stylesheet" href="<?php print STYLESHEET_PATH . 'common.css'; ?>">
+  <link rel="stylesheet" href="<?php print STYLESHEET_PATH . 'message.css'; ?>">
   <link rel="stylesheet" href="<?php print STYLESHEET_PATH . 'login_signup.css'; ?>">
-  <style>
-  /** {*/
-  /*  outline: solid 1px;*/
-  /*}*/
-  /*body {*/
-  /*  min-width:575px;*/
-  /*  background-color: lightgreen;*/
-  /*}*/
-  /*main {*/
-  /*  background-color: pink;*/
-  /*}*/
-  /*article {*/
-  /*  background-color: lightblue;*/
-  /*}*/
-  /*section {*/
-  /*  background-color: lightgray;*/
-  /*}*/
-  </style>
 </head>
 <body>
   <?php include VIEW_PATH . 'templates/header.php'; ?>
   <main>
-    <article class="container">
+    <div class="ctr">
       <h2>新規登録ページ</h2>
       <?php include VIEW_PATH . 'templates/messages.php'; ?>
       <section>
@@ -63,11 +46,13 @@
           </div>
           <input type="hidden" name="token" value="<?php print $token; ?>">
           <button type="button" class="btn btn-success" data-toggle="modal" data-target="#signup_modal">登録する</button>
-          <?php include VIEW_PATH . 'templates/dialog.php'; ?>
+          <?php include DIALOG_PATH . 'signup_modal.php'; ?>
         </form>
         <a href="login.php">ログインページはこちら(登録済みの方)</a>
       </section>
-    </article>
+    </div>
   </main>
+  <?php include VIEW_PATH . 'templates/menubar.php'; ?>
+  <?php include DIALOG_PATH . 'logout_modal.php'; ?>
 </body>
 </html>

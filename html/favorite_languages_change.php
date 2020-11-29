@@ -15,7 +15,7 @@ if ($user === false) {
   redirect_to(LOGOUT_URL);
 }
 if ($user === '') {
-  if (PREVIOUS_URL !== null) {
+  if (has_valid_previous_url() === true) {
     redirect_to(PREVIOUS_URL);
   }
   redirect_to(INDEX_URL);
@@ -23,7 +23,6 @@ if ($user === '') {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $language_types = get_post_checkbox('language_types');
-
   $token = get_post('token');
 
   if (is_valid_csrf_token($token) === false) {
@@ -31,17 +30,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   if (is_valid_language_types($language_types) === false) {
-    redirect_to(PREVIOUS_URL);
+    redirect_to(MY_PROFILE_URL);
   }
 
   if (change_favorite_languages_transaction($db, $user, $language_types) === '') {
     set_error('興味があるジャンルの変更はありませんでした');
-    redirect_to(PREVIOUS_URL);
+    redirect_to(MY_PROFILE_URL);
   } else if (change_favorite_languages_transaction($db, $user, $language_types) === false) {
     set_error('興味があるジャンルの更新に失敗しました。再度お試し下さい。');
-    redirect_to(PREVIOUS_URL);
+    redirect_to(MY_PROFILE_URL);
   }
   set_message('興味があるジャンルを更新しました');
 }
-redirect_to(PREVIOUS_URL);
+redirect_to(MY_PROFILE_URL);
 ?>

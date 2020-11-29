@@ -1,0 +1,96 @@
+/* アラートメッセージ */
+.alert a.btn, .alert a.btn:hover {
+  color: #ffffff;
+}
+.alert {
+  padding: clamp(9px, calc(9px + ((1vw - 6.64px) * 1.2821)), 12px) clamp(38px, calc(38px + ((1vw - 6.64px) * 11.1111)), 64px) clamp(9px, calc(9px + ((1vw - 6.64px) * 1.2821)), 12px) clamp(8px, calc(8px + ((1vw - 6.64px) * 5.1282)), 20px);
+  font-size: clamp(13px, calc(13px + ((1vw - 3.4px) * 0.519)), 16px);
+  text-align: left;
+}
+.alert *:not(h4):not(button[class="close"]) {
+  font-size: inherit;
+}
+.alert h4 {
+  font-size: clamp(19.5px, calc(19.5px + ((1vw - 3.4px) * 0.7785)), 24px);
+}
+.alert > span:nth-of-type(2) {
+  display: block;
+}
+.alert > button[class="close"] {
+  font-size: clamp(20px, calc(20px + ((1vw - 3.4px) * 0.789)), 24px);
+  padding: clamp(6px, calc(6px + ((1vw - 6.64px) * 2.5641)), 12px) clamp(10px, calc(10px + ((1vw - 6.64px) * 4.2735)), 20px);
+}
+
+.post_warning, .login_warning {
+  padding: 9px 38px 9px 8px;
+}
+.post_warning > span > a[class*="btn"], .login_warning > span > a[class*="btn"] {
+  font-size: 12px;
+  padding: 4.5px 9px;
+}
+.post_warning > button[class="close"], .login_warning > button[class="close"] {
+  padding: 6px 10px;
+}
+
+/* 420px~643px d = 223px */
+@media (min-width: calc(420px + 20px)) {
+  .post_warning {
+    display: flex;
+    justify-content: space-between;
+  }
+  .post_warning > span:nth-of-type(2) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+}
+/* 644px~878px d = 234px */
+@media (min-width: calc(644px + 20px)) {
+  .post_warning {
+    padding: clamp(9px, calc(9px + ((1vw - 6.64px) * 1.2821)), 12px) clamp(38px, calc(38px + ((1vw - 6.64px) * 11.1111)), 64px) clamp(9px, calc(9px + ((1vw - 6.64px) * 1.2821)), 12px) clamp(8px, calc(8px + ((1vw - 6.64px) * 5.1282)), 20px);
+  }
+  .post_warning > span > a[class*="btn"] {
+    font-size: clamp(12px, calc(12px + ((1vw - 6.64px) * 1.7094)), 16px);
+    padding: clamp(4.5px, calc(4.5px + ((1vw - 6.64px) * 0.641)), 6px) clamp(9px, calc(9px + ((1vw - 6.64px) * 1.2821)), 12px);
+  }
+  .post_warning > button[class="close"] {
+    padding: clamp(6px, calc(6px + ((1vw - 6.64px) * 2.5641)), 12px) clamp(10px, calc(10px + ((1vw - 6.64px) * 4.2735)), 20px);
+  }
+}
+/* 879px~ */
+@media (min-width: calc(879px + 20px)) {
+  .post_warning > span:nth-of-type(2) {
+    flex-direction: row;
+    align-items: center;
+  }
+  .post_warning > span > a[class*="btn"]:nth-of-type(2) {
+    margin-left: 4.38px;
+  }
+  .post_warning {
+    padding: 12px 64px 12px 20px;
+  }
+  .post_warning > span > a[class*="btn"] {
+    font-size: 16px;
+    padding: 6px 12px;
+  }
+  .post_warning > button[class="close"] {
+    padding: 12px 20px;
+  }
+}
+/* 557px~767px d = 210px */
+@media (min-width: calc(557px + 20px)) {
+  .login_warning {
+    display: flex;
+    justify-content: space-between;
+  }
+  .login_warning {
+    padding: clamp(9px, calc(9px + ((1vw - 5.77px) * 1.4286)), 12px) clamp(38px, calc(38px + ((1vw - 5.77px) * 12.381)), 64px) clamp(9px, calc(9px + ((1vw - 5.77px) * 1.4286)), 12px) clamp(8px, calc(8px + ((1vw - 5.77px) * 5.77143)), 20px);
+  }
+  .login_warning > span > a[class*="btn"] {
+    font-size: clamp(12px, calc(12px + ((1vw - 5.77px) * 1.9048)), 16px);
+    padding: clamp(4.5px, calc(4.5px + ((1vw - 5.77px) * 0.7143)), 6px) clamp(9px, calc(9px + ((1vw - 5.77px) * 1.4286)), 12px);
+  }
+  .login_warning > button[class="close"] {
+    padding: clamp(6px, calc(6px + ((1vw - 5.77px) * 2.8571)), 12px) clamp(10px, calc(10px + ((1vw - 5.77px) * 4.7619)), 20px);
+  }
+}

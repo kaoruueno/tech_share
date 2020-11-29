@@ -80,57 +80,13 @@ function get_article($db, $post_id = '', $language_type = '', $keyword_array = [
               OR body LIKE ?)';
   }
   $sql .= ' LIMIT 1';
-  // $sql = '
-  //   SELECT
-  //     post_id, 
-  //     posts.user_id,
-  //     users_t.user_name,
-  //     title,
-  //     title_image,
-  //     body,
-  //     language_type,
-  //     posts.created
-  //   FROM
-  //     posts
-  //     INNER JOIN
-  //       users_t
-  //     ON
-  //       posts.user_id = users_t.user_id
-  //   WHERE
-  //     post_id = ?
-  //   LIMIT 1
-  // ';
   return fetch_query($db, $sql, $params);
 }
 
-// function get_items($db, $is_open = false){
-//   $sql = '
-//     SELECT
-//       item_id, 
-//       name,
-//       stock,
-//       price,
-//       image,
-//       status
-//     FROM
-//       items
-//   ';
-//   if($is_open === true){
-//     $sql .= '
-//       WHERE status = 1
-//     ';
-//   }
-
-//   return fetch_all_query($db, $sql);
-// }
 function get_searched_articles($db, $display_order, $language_type, $user_id = '', $keyword_array = [], $skip_count = '') {
   $articles = get_articles($db, $display_order, $language_type, $user_id, $keyword_array, $skip_count);
   return convert_shortened_articles($articles);
 }
-  
-// function get_open_items($db){
-//   return get_items($db, true);
-// }
 
 function convert_shortened_articles($articles) {
   foreach ($articles as $key => $value) {
@@ -151,7 +107,7 @@ function get_title_img_for_index($title_img) {
 }
 
 function get_body_for_index($body) {
-  // preg_replaceで、$bodyの[画像.png]の部分を[画像]にする
+  // preg_replaceで、$bodyの[画像名.拡張子]の部分を[画像]にする
   $body = preg_replace(REGEX_IMAGE, '[画像]', $body);
   if (mb_strlen($body) > 102) {
     // 記事を100文字以内の文字列に省略する
@@ -187,7 +143,7 @@ function get_title_img_for_article($title_img) {
 }
 
 function get_body_for_article($body) {
-  return preg_replace(REGEX_IMAGE, '<div><img src="'. IMAGE_PATH . '$1$2"></div>', $body);
+  return preg_replace(REGEX_IMAGE, '<img src="'. IMAGE_PATH . '$1$2">', $body);
 }
 
 function get_valid_search_criteria_for_admin($db, $display_order, $language_type, $user_id) {

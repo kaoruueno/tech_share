@@ -1,71 +1,41 @@
-#textarea {
+/* 300px~807px d = 507px */
+form > .form-group:nth-of-type(2) label {
   width: 100%;
-  height: 300px;
 }
-
-#textarea>textarea {
-  width: 100%;
-  height: 300px;
+.ctr > section *:not([class*="btn"]):not(h3):not(h4):not(.post_pre) {
+  font-size: clamp(13px, calc(13px + ((1vw - 3.4px) * 0.5917)), 16px);
 }
-
-
-
-/**/
-
-
-.FlexTextarea {
-  position: relative;
-  font-size: 1rem;
-  line-height: 1.8;
+.ctr > section *[class*="btn"] {
+  font-size: clamp(14px, calc(14px + ((1vw - 3.4px) * 0.3945)), 16px);
+  padding: clamp(5.25px, calc(5.25px + ((1vw - 3.4px) * 0.1479)), 6px) clamp(10.5px, calc(10.5px + ((1vw - 3.4px) * 0.2959)), 12px);
 }
-
-.FlexTextarea__dummy {
-  overflow: hidden;
-  visibility: hidden;
-  box-sizing: border-box;
-  padding: 5px 15px;
-  min-height: 120px;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  border: 1px solid;
+form > button#add {
+  margin-bottom: 20px;
 }
-
-.FlexTextarea__textarea {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-  overflow: hidden;
-  box-sizing: border-box;
-  padding: 5px 15px;
-  width: 100%;
-  height: 100%;
-  background-color: transparent;
-  border: 1px solid #b6c3c6;
-  border-radius: 4px;
-  color: inherit;
-  font: inherit;
-  letter-spacing: inherit;
-  resize: none;
+form > button:first-of-type:not(#add) {
+  margin-right: clamp(16px, calc(16px + ((1vw - 3.4px) * 6.3116)), 48px);
 }
-
-.FlexTextarea__textarea:focus {
-  box-shadow: 0 0 0 4px rgba(35, 167, 195, 0.3);
-  outline: 0;
-}
-
-/**/
-
-
-.display_button {
-  display: flex;
-}
-.display_button a, .display_button input {
-  margin: 0 auto;
-}
-
 
 .post_pre {
-  white-space: pre;
+  /* white-space: pre-wrap; */
+  font-size: clamp(14px, calc(16px + ((1vw - 3.4px) * 0.789)), 18px);
+  line-height: 1.75;
+}
+.post_pre h3 {
+  font-size: clamp(21px, calc(16px + ((1vw - 3.4px) * 1.3807)), 28px);
+}
+.post_pre h4 {
+  font-size: clamp(18px, calc(16px + ((1vw - 3.4px) * 1.1834)), 24px);
+}
+.post_pre img {
+  display: block;
+  width: clamp(268px, 100%, 568px);
+  margin: 8px auto 8px auto;
+}
+.post_pre img.title_img {
+  margin: 0 auto;
+  max-height: clamp(187.5px, calc(187.5px + ((1vw - 3.4px) * 41.3215)), 397px);
+}
+.post_pre > h4:not(:first-of-type) {
+  margin-top: 28px;
 }

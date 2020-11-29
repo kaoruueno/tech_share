@@ -1,4 +1,24 @@
 <?php
+function h($str) {
+  return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
+}
+// 1次元配列の文字列型の値のみをHTMLエンティティに変換する
+function entity_array($array) {
+  foreach ($array as $key => $value) {
+    if (is_string($value) === TRUE) {
+      $array[$key] = h($value);
+    }
+  }
+  return $array;
+}
+// 2次元配列の文字列型の値のみをHTMLエンティティに変換する
+function entity_double_array($double_array) {
+  foreach ($double_array as $key => $array) {
+    $double_array[$key] = entity_array($array);
+  }
+  return $double_array;
+}
+
 function dd($var){
   var_dump($var);
   exit();
@@ -122,9 +142,9 @@ function set_error($error){
 function get_errors(){
   $errors = get_session('__errors');
   if($errors === ''){
-    return array();
+    return [];
   }
-  set_session('__errors',  array());
+  set_session('__errors',  []);
   return $errors;
 }
 
@@ -148,9 +168,9 @@ function set_message($message){
 function get_messages(){
   $messages = get_session('__messages');
   if($messages === ''){
-    return array();
+    return [];
   }
-  set_session('__messages',  array());
+  set_session('__messages',  []);
   return $messages;
 }
 
@@ -161,7 +181,7 @@ function set_login_warning($warning) {
 function get_login_warnings() {
   $warnings = get_session('__login_warnings');
   if ($warnings === '') {
-    return array();
+    return [];
   }
   unset($_SESSION['__login_warnings']);
   return $warnings;
@@ -175,7 +195,7 @@ function set_post_warning($warning) {
 function get_post_warnings() {
   $warnings = get_session('__post_warnings');
   if ($warnings === '') {
-    return array();
+    return [];
   }
   unset($_SESSION['__post_warnings']);
   return $warnings;
@@ -250,11 +270,6 @@ function is_valid_format($string, $format){
   return preg_match($format, $string) === 1;
 }
 
-
-function h($str) {
-  return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
-}
-
 function convert_all_space_into_half_width_space($str) {
   return preg_replace(REGEX_WHITE_SPACE, ' ', $str);
 }
@@ -272,7 +287,6 @@ function trim_duplicate_spaces($str) {
 }
 
 // タイトル画像用
-
 function get_upload_file_name($title_img) {
   if (is_uploaded_file($title_img['tmp_name']) === false) {
     return false;
@@ -291,7 +305,6 @@ function get_upload_file_ext($title_img) {
   } else if ($file_type === 'image/jpeg') {
     return '.jpg';
   } else {
-    // （エラー文のファイル形式は後で変更）
     set_error('タイトル画像のファイル形式が異なります。画像ファイルはJPEG、PNGのみ利用可能');
     return false;
   }
@@ -317,7 +330,6 @@ function get_upload_file_ext_array($img, $key) {
   } else if ($file_type === 'image/jpeg') {
     return '.jpg';
   } else {
-    // （エラー文のファイル形式は後で変更）
     set_error('記事中の画像用フォームの' . ($key + 1) . '番目のファイル形式が異なります。画像ファイルはJPEG、PNGのみ利用可能');
     return false;
   }
@@ -400,5 +412,56 @@ function is_valid_csrf_token($token) {
     return false;
   }
   return $token === get_session('token');
+}
+
+function is_index_page() {
+  if ($_SERVER['SCRIPT_NAME'] === INDEX_URL) {
+    return true;
+  }
+  return false;
+}
+function is_login_page() {
+  if ($_SERVER['SCRIPT_NAME'] === LOGIN_URL) {
+    return true;
+  }
+  return false;
+}
+function is_signup_page() {
+  if ($_SERVER['SCRIPT_NAME'] === SIGNUP_URL) {
+    return true;
+  }
+  return false;
+}
+function is_post_page() {
+  if ($_SERVER['SCRIPT_NAME'] === POST_URL || $_SERVER['SCRIPT_NAME'] === POST_PRE_URL) {
+    return true;
+  }
+  return false;
+}
+function is_my_profile_page() {
+  if ($_SERVER['SCRIPT_NAME'] === MY_PROFILE_URL) {
+    return true;
+  }
+  return false;
+}
+function is_admin_post_page() {
+  if ($_SERVER['SCRIPT_NAME'] === ADMIN_POST_URL) {
+    return true;
+  }
+  return false;
+}
+
+function has_valid_previous_url() {
+  // リファラ値があり、リファラ値に自サイトのホスト名を含んでいるか
+  if (isset($_SERVER['HTTP_REFERER']) === true && strpos($_SERVER['HTTP_REFERER'], $_SERVER['HTTP_HOST']) !== false) {
+    return true;
+  }
+  return false;
+}
+function is_previous_page($filename) {
+  if (isset($_SERVER['HTTP_REFERER']) === true && strpos($_SERVER['HTTP_REFERER'], $filename) !== false) {
+    return true;
+  }
+  return false;
 }
 ?>

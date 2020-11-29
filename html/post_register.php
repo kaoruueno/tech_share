@@ -28,7 +28,6 @@ $title_img_file = get_session('title_img_file');
 $body = get_session('body');
 $img_file = get_session('img_file');
 $language_type = get_post('language_type');
-
 $token = get_post('token');
 
 if (is_valid_csrf_token($token) === false) {
@@ -49,7 +48,6 @@ if (has_error() === true) {
   redirect_to(POST_URL);
 }
 
-// DBに$title, $title_img_file, $body, $language_typeを登録
 if (register_post($db, $user['user_id'], $title, $title_img_file, $body, $language_type)=== false) {
   set_error('投稿に失敗しました。再度お試し下さい。');
   redirect_to(POST_URL);

@@ -1,15 +1,29 @@
-.container>section {
+.ctr>section {
   text-align: center;
 }
-.login_form {
-  margin-bottom: 2.5rem;
+/* 300px~807px d = 507px */
+.ctr>section h5 {
+  text-align: center;
+  font-size: clamp(20px, calc(20px + ((1vw - 3.4px) * 0.789)), 24px);
 }
-.form-group {
-  margin-right: auto;
-  margin-left: auto;
+.ctr>section *[class*="btn"] {
+  padding: clamp(5.25px, calc(5.25px + ((1vw - 3.4px) * 0.1479)), 6px) clamp(10.5px, calc(10.5px + ((1vw - 3.4px) * 0.2959)), 12px);
+}
+.ctr>section>.login_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 16px;
+  font-size: clamp(14px, calc(14px + ((1vw - 3.4px) * 0.3945)), 16px);
+}
+.ctr>section>.login_form input[type]:not([type="checkbox"]) {
+  font-size: clamp(13px, calc(13px + ((1vw - 3.4px) * 0.5917)), 16px);
+}
+.ctr>section>.login_form:last-of-type:not(:first-of-type) {
+  padding-top: 16px;
+  border-top: solid 1px #cccccc;
+}
+.login_form label {
   text-align: left;
-  width: 15rem;
-}
-.form-group label {
-  width: 100%;
+  width: clamp(175px, calc(175px + ((1vw - 3.4px) * 4.931)), 200px);
 }

@@ -221,7 +221,7 @@ function get_favorite_language($db, $user_id, $language_type){
   return fetch_query($db, $sql, $params);
 }
 
-// $language_typesの配列の要素にPERMITTED_LANGUAGE_TYPESのkey(値)があるかないか？
+// $language_typesの配列の要素にPERMITTED_LANGUAGE_TYPESのkey(値)があるかどうか？
 function is_permitted_language_types_array($language_types, $permitted_value) {
   if (is_array($language_types) === false) {
     return false;
@@ -253,19 +253,16 @@ function get_profile_link_button($get_link) {
     }
     $class = 'btn';
     $disabled = '';
-  
     if ($value !== $get_link) {
       $class .= ' btn-outline-';
     } else {
       $class .= ' btn-';
     }
-
     if ($value === PROFILE_LINK['followings'] || $value === PROFILE_LINK['followers']) {
       $class .= 'dark';
     } else {
       $class .= 'success';
     }
-    
     if ($value === $get_link && $get_link !== PROFILE_LINK['no_request']) {
       $class .= ' disabled';
       $disabled = ' tabindex="-1" aria-disabled="true"';
@@ -275,8 +272,6 @@ function get_profile_link_button($get_link) {
   }
   return $button;
 }
-
-// 
 
 function is_valid_another_user_id($db, $user, $another_user_id) {
   if ($another_user_id === false || $another_user_id === '') {

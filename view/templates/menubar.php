@@ -1,11 +1,39 @@
-<aside class="row fixed-bottom">
-  <a href="index.php" class="col text-center text-success"><img src="<?php print LOGO_PATH . 'home.svg'; ?>"><div>トップページ</div></a>
-  <a href="login.php" class="col text-center text-success"><img src="<?php print LOGO_PATH . 'login.svg'; ?>"><div>ログイン</div></a>
-  <a href="signup.php" class="col text-center text-success"><img src="<?php print LOGO_PATH . 'signup.svg'; ?>"><div>新規登録</div></a>
-  <a href="post.php" class="col text-center text-success"><img src="<?php print LOGO_PATH . 'post.svg'; ?>"><div>投稿</div></a>
-  <a href="my_profile.php" class="col text-center text-success"><img src="<?php print LOGO_PATH . 'my_profile.svg'; ?>"><div>マイページ</div></a>
-  <!-- <a href="logout.php" class="col text-center text-success"><img src="print LOGO_PATH . 'logout.svg';"><div>ログアウト</div></a> -->
-  <a class="btn btn-light col text-center text-success" data-toggle="modal" data-target="#logout_modal"><img src="<?php print LOGO_PATH . 'logout.svg'; ?>"><div>ログアウト</div></a>
-  <!-- buttonでもよさそう -->
-  <?php include VIEW_PATH . 'templates/dialog.php'; ?>
-</aside>
+<nav>
+<?php if (is_index_page() === false) { ?>
+  <a href="index.php"><i class="fas fa-home"></i><div>トップ</div></a>
+<?php } else { ?>
+  <div><i class="fas fa-home"></i><div>トップ</div></div>
+<?php } ?>
+<?php if (is_logined() === false) { ?>
+  <?php if (is_login_page() === false) { ?>
+  <a href="login.php"><i class="fas fa-sign-in-alt"></i><div>ログイン</div></a>
+  <?php } else { ?>
+  <div><i class="fas fa-sign-in-alt"></i><div>ログイン</div></div>
+  <?php } ?>
+  <?php if (is_signup_page() === false) { ?>
+  <a href="signup.php"><i class="fas fa-user-plus"></i><div>新規登録</div></a>
+  <?php } else { ?>
+  <div><i class="fas fa-user-plus"></i><div>新規登録</div></div>
+  <?php } ?>
+<?php } ?>
+<?php if (is_post_page() === false) { ?>
+  <a href="post.php"><i class="fas fa-edit"></i><div>投稿</div></a>
+<?php } else { ?>
+  <div><i class="fas fa-edit"></i><div>投稿</div></div>
+<?php } ?>
+<?php if (is_logined() === true) { ?>
+  <?php if (is_my_profile_page() === false) { ?>
+  <a href="my_profile.php"><i class="fas fa-user"></i><div>マイページ</div></a>
+  <?php } else { ?>
+  <div><i class="fas fa-user"></i><div>マイページ</div></div>
+  <?php } ?>
+  <?php if (is_admin($user) === true) { ?>
+    <?php if (is_admin_post_page() === false) { ?>
+  <a href="admin_post.php"><i class="fas fa-user-cog"></i><div>投稿管理</div></a>
+    <?php } else { ?>
+  <div><i class="fas fa-user-cog"></i><div>投稿管理</div></div>
+    <?php } ?>
+  <?php } ?>
+  <a data-toggle="modal" data-target="#logout_modal"><i class="fas fa-sign-out-alt"></i><div>ログアウト</div></a>
+<?php } ?>
+</nav>

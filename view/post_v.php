@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <?php include VIEW_PATH . 'templates/responsive.php'; ?>
+  <?php include VIEW_PATH . 'templates/design.php'; ?>
   <title>投稿ページ</title>
   <link rel="stylesheet" href="<?php print STYLESHEET_PATH . 'common.css'; ?>">
-  <link rel="stylesheet" href="<?php print STYLESHEET_PATH . 'logined.css'; ?>">
+  <link rel="stylesheet" href="<?php print STYLESHEET_PATH . 'message.css'; ?>">
   <link rel="stylesheet" href="<?php print STYLESHEET_PATH . 'post.css'; ?>">
-  <!-- 投稿のテスト箇所 -->
   <script src='https://code.jquery.com/jquery-3.5.1.min.js'></script>
   <script>
     $(function(){
@@ -15,6 +14,7 @@
         var ta = $('<textarea>');
         ta.attr('name','texts[]');
         ta.attr('class','form-control');
+        ta.attr('rows','4');
         $('#fm').append(ta);
         var ip= $('<input>');
         ip.attr('type','file');
@@ -23,30 +23,11 @@
       });
     });
   </script>
-  <!-- 投稿のテスト箇所 -->  
-  <style>
-  /* * {
-    outline: solid 1px;
-  } */
-  /*body {*/
-  /*  min-width:575px;*/
-  /*  background-color: lightgreen;*/
-  /*}*/
-  /*main {*/
-  /*  background-color: pink;*/
-  /*}*/
-  /*article {*/
-  /*  background-color: lightblue;*/
-  /*}*/
-  /*.container .display_side section {*/
-  /*  background-color: lightgray;*/
-  /*}*/
-  </style>
 </head>
 <body>
   <?php include VIEW_PATH . 'templates/header.php'; ?>
   <main>
-    <article class="container">
+    <div class="ctr">
       <h2>投稿ページ</h2>
       <div class="alert alert-success alert-dismissible fade show">
         <h4>投稿方法</h4>
@@ -66,11 +47,12 @@
             <label>タイトル[必須]:<input type="text" name="title" class="form-control"></label>
           </div>
           <div id='fm' class="form-group">
-            <div>投稿内容 ( 文章[一箇所以上必須]、画像[任意] ):</div>
-            <textarea name="texts[]" class="form-control"></textarea>
+            <div>投稿内容 ( 文章[一箇所以上必須],画像[任意] ):</div>
+            <textarea name="texts[]" class="form-control" rows="4"></textarea>
             <input type="file" name="images[]">
           </div>
-          <div class="form-inline">
+          <button id='add' type="button" class="btn btn-secondary">フォーム追加</button>
+          <div class="form-group">
             <label>記事のジャンル:
               <select name="language_type">
                 <option value="">選択して下さい</option>
@@ -82,15 +64,14 @@
               </select>
             </label>
           </div>
-          <button id='add' type="button" class="btn btn-secondary">フォーム追加</button>
           <input type="hidden" name="token" value="<?php print $token; ?>">
           <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#post_pre_modal">プレビュー</button>
-          <?php include VIEW_PATH . 'templates/dialog.php'; ?>
+          <?php include DIALOG_PATH . 'post_pre_modal.php'; ?>
         </form>
       </section>
-    </article>
+    </div>
   </main>
   <?php include VIEW_PATH . 'templates/menubar.php'; ?>
-  <script type="text/javascript" src="<?php print JS_PATH . 'post.js'; ?>"></script>
+  <?php include DIALOG_PATH . 'logout_modal.php'; ?>
 </body>
 </html>
